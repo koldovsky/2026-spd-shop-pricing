@@ -10,4 +10,4 @@ The only place where prices are computed. Contract: shop-workspace `docs/contrac
 ## Hard rules
 - Decimal arithmetic (`decimal.js`) inside; integer cents in the API; round half-even once per line and once per total (ADR-007).
 - Every pricing rule has a test, including the boundary value.
-- API errors: see `.claude/rules/api-errors.md`.
+- API errors: the `api-errors` skill from shop-harness (team-core). No local copies — the drift check fails on them.
