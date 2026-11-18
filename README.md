@@ -1,4 +1,4 @@
-# shop-pricing
+# 2026-spd-shop-pricing
 
 Pricing service of the demo **Shop** system (SPD «Team AI Engineering», Workshop 1). TypeScript + Express 5.
 In Session 2 an agent migrates it to another stack, with proof.
