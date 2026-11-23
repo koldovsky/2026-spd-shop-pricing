@@ -1,0 +1,782 @@
+$ node parity/check.mjs --base http://localhost:8084 --show 200 --json /d/demo-s2/runs-go/oracle-s1/check.json
+parity:check target=http://localhost:8084
+corpus D:\demo-s2\oracle-go\parity\corpus\corpus.json sha256=0211ef856e503d89… recorded from http://localhost:8082 at 25f3e2b940ad
+
+FAIL prices-SKU-1-EUR  [prices, happy, currency:EUR]
+  request: GET /prices/SKU-1?currency=EUR
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-1</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-1-USD  [prices, happy, currency:USD]
+  request: GET /prices/SKU-1?currency=USD
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-1</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-1-UAH  [prices, happy, currency:UAH]
+  request: GET /prices/SKU-1?currency=UAH
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-1</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-2-EUR  [prices, happy, currency:EUR]
+  request: GET /prices/SKU-2?currency=EUR
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-2</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-2-USD  [prices, happy, currency:USD]
+  request: GET /prices/SKU-2?currency=USD
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-2</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-2-UAH  [prices, happy, currency:UAH]
+  request: GET /prices/SKU-2?currency=UAH
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-2</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-3-EUR  [prices, happy, currency:EUR]
+  request: GET /prices/SKU-3?currency=EUR
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-3</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-3-USD  [prices, happy, currency:USD]
+  request: GET /prices/SKU-3?currency=USD
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-3</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-3-UAH  [prices, happy, currency:UAH]
+  request: GET /prices/SKU-3?currency=UAH
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-3</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-4-EUR  [prices, happy, currency:EUR]
+  request: GET /prices/SKU-4?currency=EUR
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-4</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-4-USD  [prices, happy, currency:USD]
+  request: GET /prices/SKU-4?currency=USD
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-4</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-4-UAH  [prices, happy, currency:UAH]
+  request: GET /prices/SKU-4?currency=UAH
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-4</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-5-EUR  [prices, happy, currency:EUR]
+  request: GET /prices/SKU-5?currency=EUR
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-5</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-5-USD  [prices, happy, currency:USD]
+  request: GET /prices/SKU-5?currency=USD
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-5</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-5-UAH  [prices, happy, currency:UAH]
+  request: GET /prices/SKU-5?currency=UAH
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-5</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-1-default-currency  [prices, happy, default-currency]
+  request: GET /prices/SKU-1
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-1</pre>\n</body>\n</html>\n"
+
+FAIL prices-SKU-4-default-currency  [prices, happy, default-currency]
+  request: GET /prices/SKU-4
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-4</pre>\n</body>\n</html>\n"
+
+FAIL prices-unknown-sku  [prices, unknown-sku]
+  request: GET /prices/SKU-9?currency=EUR
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-9</pre>\n</body>\n</html>\n"
+
+FAIL prices-lowercase-sku  [prices, unknown-sku]
+  request: GET /prices/sku-1?currency=EUR
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/sku-1</pre>\n</body>\n</html>\n"
+
+FAIL prices-unknown-sku-before-currency  [prices, unknown-sku, validation-order]
+  note: SKU is checked before currency: 404, not 422
+  request: GET /prices/SKU-9?currency=GBP
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-9</pre>\n</body>\n</html>\n"
+
+FAIL prices-non-ascii-sku  [prices, unknown-sku]
+  request: GET /prices/%E2%82%AC
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/%E2%82%AC</pre>\n</body>\n</html>\n"
+
+FAIL prices-sku-with-space  [prices, unknown-sku]
+  request: GET /prices/SKU%201
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU%201</pre>\n</body>\n</html>\n"
+
+FAIL prices-percent-encoded-sku  [prices, happy]
+  note: path segment is percent-decoded before lookup
+  request: GET /prices/SKU%2D4?currency=UAH
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU%2D4</pre>\n</body>\n</html>\n"
+
+FAIL prices-unsupported-currency  [prices, invalid-currency]
+  request: GET /prices/SKU-1?currency=GBP
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-1</pre>\n</body>\n</html>\n"
+
+FAIL prices-lowercase-currency  [prices, invalid-currency]
+  request: GET /prices/SKU-1?currency=usd
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-1</pre>\n</body>\n</html>\n"
+
+FAIL prices-empty-currency  [prices, invalid-currency, malformed-query]
+  request: GET /prices/SKU-1?currency=
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-1</pre>\n</body>\n</html>\n"
+
+FAIL prices-currency-leading-space  [prices, invalid-currency, malformed-query]
+  request: GET /prices/SKU-1?currency=%20EUR
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-1</pre>\n</body>\n</html>\n"
+
+FAIL prices-repeated-currency  [prices, invalid-currency, malformed-query]
+  note: repeated key becomes the list 'EUR,USD' and is rejected
+  request: GET /prices/SKU-1?currency=EUR&currency=USD
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-1</pre>\n</body>\n</html>\n"
+
+FAIL prices-bracket-currency-ignored  [prices, malformed-query]
+  note: 'currency[]' is a different key: currency defaults to EUR
+  request: GET /prices/SKU-4?currency[]=USD
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-4</pre>\n</body>\n</html>\n"
+
+FAIL prices-nested-currency-ignored  [prices, malformed-query]
+  request: GET /prices/SKU-4?currency[a]=USD
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-4</pre>\n</body>\n</html>\n"
+
+FAIL prices-currency-param-case  [prices, malformed-query]
+  note: parameter names are case-sensitive: currency defaults to EUR
+  request: GET /prices/SKU-1?Currency=USD
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-1</pre>\n</body>\n</html>\n"
+
+FAIL prices-extra-param-ignored  [prices, malformed-query]
+  request: GET /prices/SKU-2?currency=USD&debug=1
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-2</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-1-EUR-x1  [quote, happy, currency:EUR]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-1-USD-x1  [quote, happy, currency:USD]
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-1","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-1-UAH-x1  [quote, happy, currency:UAH]
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-1","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-2-EUR-x1  [quote, happy, currency:EUR]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-2","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-2-USD-x1  [quote, happy, currency:USD]
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-2","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-2-UAH-x1  [quote, happy, currency:UAH]
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-2","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-3-EUR-x1  [quote, happy, currency:EUR]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-3","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-3-USD-x1  [quote, happy, currency:USD]
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-3","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-3-UAH-x1  [quote, happy, currency:UAH]
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-3","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-4-EUR-x1  [quote, happy, currency:EUR]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-4","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-4-USD-x1  [quote, happy, currency:USD]
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-4","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-4-UAH-x1  [quote, happy, currency:UAH]
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-4","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-5-EUR-x1  [quote, happy, currency:EUR]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-5","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-5-USD-x1  [quote, happy, currency:USD]
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-5","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-SKU-5-UAH-x1  [quote, happy, currency:UAH]
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-5","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-bulk-below-EUR  [quote, bulk, boundary]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":9}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-bulk-at-EUR  [quote, bulk, boundary]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":10}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-max-quantity-EUR  [quote, bulk, boundary]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-2","quantity":100}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-bulk-below-USD  [quote, bulk, boundary]
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-1","quantity":9}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-bulk-at-USD  [quote, bulk, boundary]
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-1","quantity":10}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-max-quantity-USD  [quote, bulk, boundary]
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-2","quantity":100}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-bulk-below-UAH  [quote, bulk, boundary]
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-1","quantity":9}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-bulk-at-UAH  [quote, bulk, boundary]
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-1","quantity":10}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-max-quantity-UAH  [quote, bulk, boundary]
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-2","quantity":100}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-promo-x1  [quote, promo]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-3","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-promo-x9  [quote, promo, boundary]
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-3","quantity":9}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-promo-beats-bulk-x10  [quote, promo, bulk]
+  note: vitest: 15% of 249000 = 37350, not 20%
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-3","quantity":10}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-promo-max-UAH  [quote, promo, bulk, boundary]
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-3","quantity":100}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-cart-below-threshold-EUR  [quote, cart-discount, boundary]
+  note: 199.98 EUR-equivalent: no cart discount
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-4","quantity":6}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-cart-above-threshold-EUR  [quote, cart-discount, boundary]
+  note: 204.08 EUR-equivalent: 3% cart discount
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-2","quantity":1},{"sku":"SKU-4","quantity":1},{"sku":"SKU-5","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-cart-below-threshold-USD  [quote, cart-discount, boundary]
+  note: 199.98 EUR-equivalent: no cart discount
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-4","quantity":6}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-cart-above-threshold-USD  [quote, cart-discount, boundary]
+  note: 204.08 EUR-equivalent: 3% cart discount
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-2","quantity":1},{"sku":"SKU-4","quantity":1},{"sku":"SKU-5","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-cart-below-threshold-UAH  [quote, cart-discount, boundary]
+  note: 199.98 EUR-equivalent: no cart discount
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-4","quantity":6}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-cart-above-threshold-UAH  [quote, cart-discount, boundary]
+  note: 204.08 EUR-equivalent: 3% cart discount
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-2","quantity":1},{"sku":"SKU-4","quantity":1},{"sku":"SKU-5","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-cart-discount-vitest  [quote, cart-discount]
+  note: vitest: 259.00 -> 777
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-2","quantity":2}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-vitest-small-cart  [quote, happy]
+  note: vitest: 8990 + VAT 1798 = 10788
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-duplicate-lines-not-merged  [quote, bulk, lines]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1},{"sku":"SKU-1","quantity":1},{"sku":"SKU-1","quantity":1},{"sku":"SKU-1","quantity":1},{"sku":"SKU-1","q…
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-mixed-cart-USD  [quote, happy, lines]
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-1","quantity":2},{"sku":"SKU-3","quantity":1},{"sku":"SKU-4","quantity":12},{"sku":"SKU-5","quantity":3}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-mixed-cart-UAH  [quote, happy, lines]
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-2","quantity":3},{"sku":"SKU-3","quantity":10},{"sku":"SKU-5","quantity":7}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-largest-cart-UAH  [quote, boundary, lines]
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-1","quantity":100},{"sku":"SKU-2","quantity":100},{"sku":"SKU-3","quantity":100},{"sku":"SKU-4","quantity":100},{"sku":"S…
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-50-lines  [quote, lines]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1},{"sku":"SKU-2","quantity":2},{"sku":"SKU-3","quantity":3},{"sku":"SKU-4","quantity":4},{"sku":"SKU-5","q…
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL trap-cart-discount-tie-even  [quote, rounding, rounding-trap, half-even]
+  note: cart 44950 x 3% = 1348.5 -> 1348 (half-even); half-up gives 1349
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":5}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL trap-cart-discount-tie-odd  [quote, rounding, half-even]
+  note: cart 38850 x 3% = 1165.5 -> 1166 (same in half-up)
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-2","quantity":3}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL trap-line-discount-tie-even  [quote, rounding, rounding-trap, half-even]
+  note: discount 4944.5 -> 4944; half-up gives 4945
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":11}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL trap-line-total-tie-even  [quote, rounding, rounding-trap, half-even]
+  note: line 111026.5 -> 111026; half-up gives 111027
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":13}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL trap-round-unit-first  [quote, rounding, rounding-trap, rounding-order]
+  note: line = round(9731.675 x 2) = 19463; round(unit) x 2 gives 19464
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-1","quantity":2}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL trap-subtract-rounded  [quote, rounding, rounding-trap, rounding-order]
+  note: line = round(gross - discount); round(gross) - round(discount) is 1 cent off
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-1","quantity":16}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL trap-unit-conversion-USD  [prices, rounding]
+  note: vitest: 3333 x 1.0825 = 3607.9725 -> 3608
+  request: GET /prices/SKU-4?currency=USD
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-4</pre>\n</body>\n</html>\n"
+
+FAIL quantity-1.0-is-integer  [quote, json-number]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1.0}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quantity-1e2-is-100  [quote, json-number, boundary]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1e2}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quantity-1e3-too-large  [quote, json-number, invalid-quantity]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1e3}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quantity-fraction  [quote, invalid-quantity]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1.5}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quantity-string  [quote, invalid-quantity]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":"2"}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quantity-zero  [quote, invalid-quantity, boundary]
+  note: vitest: rejects quantity 0 (/1..100/)
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":0}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quantity-negative  [quote, invalid-quantity]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":-1}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quantity-101  [quote, invalid-quantity, boundary]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":101}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quantity-null  [quote, invalid-quantity]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":null}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quantity-boolean  [quote, invalid-quantity]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":true}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quantity-huge  [quote, invalid-quantity]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":9007199254740992}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quantity-missing  [quote, invalid-quantity]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1"}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-unknown-sku  [quote, unknown-sku]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-9","quantity":1}]}
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-lowercase-sku  [quote, unknown-sku]
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"sku-2","quantity":1}]}
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-non-ascii-sku  [quote, unknown-sku]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"€","quantity":1}]}
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-sku-missing  [quote, unknown-sku]
+  note: TS message is 'unknown sku undefined'
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"quantity":1}]}
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON { "error": string }, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-sku-number  [quote, unknown-sku]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":1,"quantity":1}]}
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON { "error": string }, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-line-is-string  [quote, invalid-input]
+  note: 422: quantity is checked first
+  request: POST /quote [application/json] {"currency":"EUR","lines":["SKU-1"]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON { "error": string }, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-unsupported-currency  [quote, invalid-currency]
+  note: vitest: rejects an unknown currency (/unsupported/)
+  request: POST /quote [application/json] {"currency":"GBP","lines":[{"sku":"SKU-1","quantity":1}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-lowercase-currency  [quote, invalid-currency]
+  request: POST /quote [application/json] {"currency":"eur","lines":[{"sku":"SKU-1","quantity":1}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-empty-currency  [quote, invalid-currency]
+  request: POST /quote [application/json] {"currency":"","lines":[{"sku":"SKU-1","quantity":1}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-currency-number  [quote, invalid-input]
+  request: POST /quote [application/json] {"currency":1,"lines":[{"sku":"SKU-1","quantity":1}]}
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-currency-missing  [quote, invalid-input]
+  request: POST /quote [application/json] {"lines":[{"sku":"SKU-1","quantity":1}]}
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL order-empty-lines-before-currency  [quote, validation-order, empty]
+  note: empty lines (422) is checked before the currency
+  request: POST /quote [application/json] {"currency":"GBP","lines":[]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL order-currency-before-lines  [quote, validation-order]
+  request: POST /quote [application/json] {"currency":"GBP","lines":[{"sku":"SKU-1","quantity":0}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL order-quantity-before-sku  [quote, validation-order]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-9","quantity":0}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL order-first-failing-line-wins  [quote, validation-order]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1},{"sku":"SKU-2","quantity":0},{"sku":"SKU-9","quantity":1}]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL order-unknown-sku-in-first-line  [quote, validation-order]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-9","quantity":1},{"sku":"SKU-1","quantity":0}]}
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-empty-lines  [quote, empty]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-lines-missing  [quote, invalid-input, empty]
+  request: POST /quote [application/json] {"currency":"EUR"}
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-lines-object  [quote, invalid-input]
+  request: POST /quote [application/json] {"currency":"EUR","lines":{"sku":"SKU-1","quantity":1}}
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-lines-string  [quote, invalid-input]
+  request: POST /quote [application/json] {"currency":"EUR","lines":"SKU-1"}
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-empty-object  [quote, invalid-input, empty]
+  request: POST /quote [application/json] {}
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-body-array  [quote, invalid-input]
+  request: POST /quote [application/json] []
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-body-empty  [quote, invalid-input, empty]
+  request: POST /quote [application/json] 
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-malformed-json  [quote, malformed-json]
+  request: POST /quote [application/json] {bad
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-truncated-json  [quote, malformed-json]
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1}]
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-json-null  [quote, malformed-json]
+  note: strict JSON parser: only objects and arrays are accepted
+  request: POST /quote [application/json] null
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-json-string  [quote, malformed-json]
+  request: POST /quote [application/json] "x"
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-text-plain  [quote, content-type]
+  note: non-JSON content type: body is ignored -> 400
+  request: POST /quote [text/plain] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1}]}
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-no-content-type  [quote, content-type]
+  request: POST /quote {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1}]}
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-json-charset  [quote, content-type, happy]
+  request: POST /quote [application/json; charset=utf-8] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-extra-fields-ignored  [quote, happy]
+  note: unknown fields are ignored and not echoed
+  request: POST /quote [application/json] {"currency":"USD","note":"x","lines":[{"sku":"SKU-5","quantity":2,"price":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+FAIL quote-duplicate-key-last-wins  [quote, json-parsing]
+  request: POST /quote [application/json] {"currency":"USD","currency":"EUR","lines":[{"sku":"SKU-1","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+quirk differs (not gating) quirk-prices-currency-toString: status: expected 500, got 404; content-type: expected "application/json", got "text/html"; body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-1</pre>\n</body>\n</html>\n"
+
+quirk differs (not gating) quirk-prices-currency-proto: status: expected 500, got 404; content-type: expected "application/json", got "text/html"; body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /prices/SKU-1</pre>\n</body>\n</html>\n"
+
+quirk differs (not gating) quirk-quote-currency-constructor: status: expected 500, got 404; content-type: expected "application/json", got "text/html"; body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+quirk differs (not gating) quirk-quote-null-line: status: expected 500, got 404; content-type: expected "application/json", got "text/html"; body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+quirk differs (not gating) quirk-trailing-slash: status: expected 200, got 404; content-type: expected "application/json", got "text/html"; body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /catalog/</pre>\n</body>\n</html>\n"
+
+quirk differs (not gating) quirk-oversized-body: status: expected 500, got 404; content-type: expected "application/json", got "text/html"; body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+gating: 6/130 passed (failing tags: happy 1/39, prices 0/33, currency:EUR 0/10, currency:USD 0/10, currency:UAH 0/10, default-currency 0/2, unknown-sku 0/10, validation-order 0/6, invalid-currency 0/8, malformed-query 0/7, quote 0/91, bulk 0/12, boundary 0/21, promo 0/4, cart-discount 0/7, lines 0/5, rounding 0/7, rounding-trap 0/5, half-even 0/4, rounding-order 0/2, json-number 0/3, invalid-quantity 0/10, invalid-input 0/9, empty 0/5, malformed-json 0/4, content-type 0/3, json-parsing 0/1)
+quirks (not gating): 0/6 same as reference
+RESULT: FAIL (124 gating mismatches)
+[exit 1]

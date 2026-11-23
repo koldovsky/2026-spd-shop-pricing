@@ -1,0 +1,42 @@
+# PRICE-42 parity gate for the Go reimplementation (plan: docs/plans/PRICE-42-go.md).
+name: parity-go
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.27'
+      # The slice-1 oracle (check.mjs) imports only Node built-ins, so no npm ci yet.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: go vet
+        working-directory: go
+        run: go vet ./...
+      - name: go test
+        working-directory: go
+        run: go test ./...
+      - name: build and start candidate
+        working-directory: go
+        run: |
+          go build -o "$RUNNER_TEMP/pricing-go" .
+          PORT=8090 nohup "$RUNNER_TEMP/pricing-go" > "$RUNNER_TEMP/pricing-go.log" 2>&1 &
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:8090/catalog > /dev/null && exit 0
+            sleep 1
+          done
+          cat "$RUNNER_TEMP/pricing-go.log"
+          exit 1
+      # Oracle steps: one per command, each must exit 0. Later slices extend this list.
+      - name: oracle check --tag catalog
+        run: node parity/check.mjs --base http://localhost:8090 --tag catalog
+      - name: oracle check --tag routing
+        run: node parity/check.mjs --base http://localhost:8090 --tag routing

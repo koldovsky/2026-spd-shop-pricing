@@ -1,0 +1,197 @@
+$ node parity/blackbox/run.mjs --base http://localhost:8084
+blackbox target=http://localhost:8084
+▶ unit prices (vitest: unit prices)
+  ✖ returns the base price in EUR (16.9358ms)
+  ✖ converts at the fixed rate and rounds half-even (3333 x 1.0825 = 3607.9725 -> 3608) (1.1528ms)
+  ✖ defaults to EUR when no currency is given (0.7008ms)
+  ✖ returns 404 with an error body for an unknown SKU (0.6847ms)
+✖ unit prices (vitest: unit prices) (20.2157ms)
+▶ quote (vitest: quote)
+  ✖ prices a small cart with VAT and no cart discount (1.1125ms)
+  ✖ uses the larger line discount, not both (15% of 249000, not 20%) (0.7515ms)
+  ✖ adds the 3% cart discount from 200.00 EUR (259.00 -> 777) (1.242ms)
+  ✖ rejects quantity 0 with 422 and a 1..100 message (0.7157ms)
+  ✖ rejects an unknown currency with 422 'unsupported' (0.7549ms)
+✖ quote (vitest: quote) (4.897ms)
+▶ HTTP contract (consumers: shop-web, shop-orders)
+  ✔ GET /catalog lists sku and name only (1.359ms)
+  ✖ POST /quote returns the full quote shape (shop-orders reads totalCents) (0.4888ms)
+  ✖ rounds the cart discount half-even (1348.5 -> 1348) (0.5261ms)
+  ✖ returns 400 'malformed JSON' for a broken body (0.9118ms)
+  ✖ returns 400 for a body without lines (0.5824ms)
+  ✖ returns 422 for an empty cart (0.5421ms)
+  ✖ returns 404 for an unknown SKU in a quote (0.5979ms)
+✖ HTTP contract (consumers: shop-web, shop-orders) (5.3125ms)
+ℹ tests 16
+ℹ suites 3
+ℹ pass 1
+ℹ fail 15
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 103.4329
+
+✖ failing tests:
+
+test at parity\blackbox\http-suite.mjs:15:3
+✖ returns the base price in EUR (16.9358ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at get (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:10:110)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:16:15)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Promise.all (index 0)
+      at async Suite.run (node:internal/test_runner/test:1794:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at parity\blackbox\http-suite.mjs:20:3
+✖ converts at the fixed rate and rounds half-even (3333 x 1.0825 = 3607.9725 -> 3608) (1.1528ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at get (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:10:110)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:21:15)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at parity\blackbox\http-suite.mjs:25:3
+✖ defaults to EUR when no currency is given (0.7008ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at get (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:10:110)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:26:19)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at parity\blackbox\http-suite.mjs:28:3
+✖ returns 404 with an error body for an unknown SKU (0.6847ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at get (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:10:110)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:29:15)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at parity\blackbox\http-suite.mjs:36:3
+✖ prices a small cart with VAT and no cart discount (1.1125ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at post (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:11:177)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:37:15)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Promise.all (index 0)
+      at async Suite.run (node:internal/test_runner/test:1794:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at parity\blackbox\http-suite.mjs:45:3
+✖ uses the larger line discount, not both (15% of 249000, not 20%) (0.7515ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at post (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:11:177)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:46:15)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at parity\blackbox\http-suite.mjs:49:3
+✖ adds the 3% cart discount from 200.00 EUR (259.00 -> 777) (1.242ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at post (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:11:177)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:50:15)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at parity\blackbox\http-suite.mjs:53:3
+✖ rejects quantity 0 with 422 and a 1..100 message (0.7157ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at post (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:11:177)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:54:15)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at parity\blackbox\http-suite.mjs:58:3
+✖ rejects an unknown currency with 422 'unsupported' (0.7549ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at post (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:11:177)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:59:15)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at parity\blackbox\http-suite.mjs:72:3
+✖ POST /quote returns the full quote shape (shop-orders reads totalCents) (0.4888ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at post (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:11:177)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:73:15)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at parity\blackbox\http-suite.mjs:78:3
+✖ rounds the cart discount half-even (1348.5 -> 1348) (0.5261ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at post (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:11:177)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:79:15)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at parity\blackbox\http-suite.mjs:82:3
+✖ returns 400 'malformed JSON' for a broken body (0.9118ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  404 !== 400
+  
+      at TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:84:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 404,
+    expected: 400,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at parity\blackbox\http-suite.mjs:87:3
+✖ returns 400 for a body without lines (0.5824ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at post (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:11:177)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:88:15)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at parity\blackbox\http-suite.mjs:92:3
+✖ returns 422 for an empty cart (0.5421ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at post (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:11:177)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:93:15)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at parity\blackbox\http-suite.mjs:96:3
+✖ returns 404 for an unknown SKU in a quote (0.5979ms)
+  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at post (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:11:177)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:97:15)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7)
+[exit 1]

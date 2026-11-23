@@ -1,0 +1,86 @@
+$ node parity/contract.mjs --base http://localhost:8084
+contract target=http://localhost:8084 spec=contracts/openapi.yaml (shop-pricing 1.0.0)
+
+VIOLATION prices-SKU-1-EUR
+  request: GET /prices/SKU-1?currency=EUR
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-1-USD
+  request: GET /prices/SKU-1?currency=USD
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-1-UAH
+  request: GET /prices/SKU-1?currency=UAH
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-2-EUR
+  request: GET /prices/SKU-2?currency=EUR
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-2-USD
+  request: GET /prices/SKU-2?currency=USD
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-2-UAH
+  request: GET /prices/SKU-2?currency=UAH
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-3-EUR
+  request: GET /prices/SKU-3?currency=EUR
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-3-USD
+  request: GET /prices/SKU-3?currency=USD
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-3-UAH
+  request: GET /prices/SKU-3?currency=UAH
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-4-EUR
+  request: GET /prices/SKU-4?currency=EUR
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-4-USD
+  request: GET /prices/SKU-4?currency=USD
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-4-UAH
+  request: GET /prices/SKU-4?currency=UAH
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-5-EUR
+  request: GET /prices/SKU-5?currency=EUR
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-5-USD
+  request: GET /prices/SKU-5?currency=USD
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-5-UAH
+  request: GET /prices/SKU-5?currency=UAH
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-1-default-currency
+  request: GET /prices/SKU-1
+  - media type text/html not declared for 404
+
+VIOLATION prices-SKU-4-default-currency
+  request: GET /prices/SKU-4
+  - media type text/html not declared for 404
+
+VIOLATION prices-unknown-sku
+  request: GET /prices/SKU-9?currency=EUR
+  - media type text/html not declared for 404
+
+VIOLATION prices-lowercase-sku
+  request: GET /prices/sku-1?currency=EUR
+  - media type text/html not declared for 404
+
+VIOLATION prices-unknown-sku-before-currency
+  request: GET /prices/SKU-9?currency=GBP
+  - media type text/html not declared for 404
+
+contract: 1/125 gating corpus requests conform (status-only cases excluded)
+RESULT: FAIL (124 violations)
+[exit 1]
