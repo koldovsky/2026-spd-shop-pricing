@@ -18,7 +18,7 @@ rest on evidence the migrating agent could not change.
 | Differential tester | `parity/diff/diff.mjs` | `--a <TS> --b <candidate> --seed 42 --n 1000` exits 0 |
 | Black-box suite | `parity/blackbox/` | `node parity/blackbox/run.mjs --base <url>` exits 0 |
 | Benchmark | `bench/run.mjs`, baseline `bench/results/ts-baseline.json` | see the budget below |
-| Lock | `.claude/hooks/protect-oracle.mjs` + `.github/CODEOWNERS` | agents cannot edit `parity/`, `contracts/`, `bench/` |
+| Lock | `.claude/hooks/protect-oracle.mjs` + `.github/CODEOWNERS` | agents cannot edit `parity/`, `contracts/`, `bench/`, nor the lock itself (`.claude/settings.json`, `.claude/hooks/`) |
 
 ## Acceptance criteria (per stack)
 
@@ -31,7 +31,7 @@ rest on evidence the migrating agent could not change.
 5. **Performance budget:** median p95 over 3 repeats with the default `bench/run.mjs` profile is **not above
    the TS median p95 measured in the same session, back to back, on the same machine**. Reference value:
    TS median p95 **5.64 ms** (`bench/results/ts-baseline.json`, 3 x 20 s, 64 connections). The TS figure moved
-   between 4.55 and 5.64 ms across three sessions, so the comparison must be same-session; a fixed number alone is
+   between 5.22 and 5.64 ms in two recorded sessions (`bench/results/ts-baseline.json`, `docs/evidence/PRICE-42/bench-ts-rerun.json`), so the comparison must be same-session; a fixed number alone is
    not a valid gate. RPS, p99, peak RSS and cold start are reported as measured, with no pass/fail.
 6. Every PR: key `PRICE-42` in title and branch, `Refs:` on every commit, an evidence file naming the verified
    SHA, under 400 changed lines (shop-harness gates), and a reviewer who is not the agent.
