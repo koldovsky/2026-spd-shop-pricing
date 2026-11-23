@@ -10,7 +10,7 @@ Orchestrator: Claude Code (claude-opus-5-5) under the 23.11 permission. Agent un
 - Flags: `--output-format json --model claude-opus-5-5 --max-turns 60 --permission-mode acceptEdits --add-dir <shop-orders repo, from iteration 02> --allowedTools` with: `Bash(./gradlew *)`, `Bash(./gradlew)`, `Bash(kotlin/gradlew *)`, `Bash(./kotlin/gradlew *)`, `Bash(gradlew.bat *)`, `Bash(cmd //c gradlew.bat *)`, `Bash(git add *)`, `Bash(git commit *)`, `Bash(git status)`, `Bash(git status *)`, `Bash(git diff)`, `Bash(git diff *)`, `Bash(git log)`, `Bash(git log *)`, `Bash(npm run parity:*)`, `Bash(node parity/*)`, `Bash(node bench/*)`, `Bash(java *)`, `Bash(PORT=8083 java *)` (from 02), `Bash(curl *)`, `Bash(cp *)`, `Bash(mkdir *)`, `Bash(chmod *)`, `Bash(git update-index *)`, `Bash(sleep *)`, `Bash(cd kotlin *)`; from iteration 03 also `Bash(git -C * status*)`, `Bash(git -C * diff*)`, `Bash(git -C * log*)`, `Bash(git -C * add *)`, `Bash(git -C * commit *)`, `Bash(git ls-files*)`. This is wider than the brief's minimum (java, curl, cp, mkdir, chmod, git update-index, sleep): the agent must start its candidate and copy the wrapper. No `--dangerously-skip-permissions`.
 - Mechanics that are not interventions: the orchestrator creates each slice branch from `origin/main` before the call (the allowlist has no checkout/switch), pushes, writes evidence commits and opens/merges PRs. The plan was written uncommitted in iteration 01 (on a local branch renamed to `PRICE-42-kotlin-skeleton`) and committed by the agent in slice 1.
 - Merge rule for slices before the endpoints exist: trace and diff-size green; the parity gate may be red with its gating count recorded and never falling; the last slice must be fully green. A plan that weakens the parity workflow would have been rejected.
-- Reviewer seed for the differential tester: 7. It is not named in any prompt and is run only at the final check.
+- Reviewer seed for the differential tester: 7, fixed before the start and never named in a prompt. It turned out not to be unseen: the agent's own plan proposed 7 among its extra seeds, and it ran 42, 7, 1234, 2026 and 99991 in iteration 09. So the final check adds seed 20261126, which no prompt or agent command used.
 - Allowlist change after iteration 08 (harness, not a tree change): added `Bash(/d/demo-s2/pricing-kotlin/kotlin/gradlew *)`, `Bash(kotlin/gradlew.bat *)`, `PowerShell(.\kotlin\gradlew.bat *)`, `PowerShell(kotlin/gradlew.bat *)`, `PowerShell(kotlin\gradlew.bat *)`, because the agent could not build in iteration 08 with those forms.
 
 ## Iterations
@@ -272,3 +272,112 @@ Rules (all slices):
 - Finish with a clean working tree and a short report: what you built, changed-line count, build result, oracle counts.
 ```
 
+### 09-parity — slice 6 parity
+
+- Start 2026-11-23T20:41:56+02:00 · end 2026-11-23T20:42:44+02:00 · wall-clock 48 s
+- `num_turns` 17 · `total_cost_usd` 0.5677422 · `duration_ms` 45839 · `is_error` false (`success`) · permission denials 6
+- Result: committed `79dcaa9`: `kotlin/README.md` only (60 lines): the oracle already showed 0 differences, so no fixes were needed. It ran diff seeds 42, 7, 1234, 2026, 99991 (its plan had proposed 7 among extra seeds). 6 denials (compound start/oracle commands, netstat/Get-NetTCPConnection).
+- Oracle after it (orchestrator, oracle checkout): **converged at 79dcaa9**: check 130/130 gating, contract 125/125, black-box 16/16, diff seed 42 0/1000, seed 7 0/1000, seed 20261126 (not used by the agent) 0/1000, oracle folders unchanged
+- Interventions: none
+
+Prompt (verbatim, `runs/kotlin/prompts/09-parity.txt`):
+
+```text
+PRICE-42, Kotlin stream, slice 6 of 6: parity. Branch: PRICE-42-kotlin-parity.
+
+Implement slice 6 of the accepted plan docs/plans/PRICE-42-kotlin.md (slices 1 to 5 are merged on main).
+
+Rules (all slices):
+- Read AGENTS.md, docs/specs/PRICE-42.md, parity/README.md and the accepted plan docs/plans/PRICE-42-kotlin.md first.
+- You are already on the slice branch, created from origin/main. Do not create, switch, rebase or push branches; the orchestrator pushes and opens the PR.
+- All code in kotlin/. Nothing else at the repo root except .github/workflows/parity-kotlin.yml. Never edit parity/, contracts/, bench/ or .claude/. Do not write files under docs/evidence/ (the orchestrator writes evidence). Spec non-goals apply: no new endpoints, fields, messages or status codes.
+- Java 21, Gradle wrapper in kotlin/, BigDecimal money, PORT env var (default 8082).
+- Keep this slice under 400 changed lines as the diff-size gate counts them (added + deleted vs origin/main; gradlew, gradlew.bat, **/gradle/wrapper/**, lockfiles and docs/evidence/** excluded). Check with git diff --numstat origin/main before you finish.
+- The TS reference runs at http://localhost:8093 (do not start or stop it). Run your candidate only on PORT=8083, never on 8082, 8084 or 8094, and stop the candidate process you started before you finish. Do not run the benchmark.
+- Oracle commands (repo root): node parity/check.mjs --base http://localhost:8083 ; node parity/contract.mjs --base http://localhost:8083 ; node parity/blackbox/run.mjs --base http://localhost:8083 ; node parity/diff/diff.mjs --a http://localhost:8093 --b http://localhost:8083 --seed 42 --n 1000
+- Commit your work (one or a few commits). Every commit message ends with exactly these trailer lines as its last paragraph:
+  Refs: PRICE-42
+  Assisted-by: Claude Code (claude-opus-5-5)
+- Finish with a clean working tree and a short report: what you built, changed-line count, build result, oracle counts.
+```
+
+### 10-parity-paths — slice 6 parity, workflow trigger (after convergence)
+
+- Start 2026-11-23T20:48:33+02:00 · end 2026-11-23T20:48:49+02:00 · wall-clock 16 s
+- `num_turns` 5 · `total_cost_usd` 0.30111259999999995 · `duration_ms` 13743 · `is_error` false (`success`) · permission denials 0
+- Result: asked by the coordinator after the Go stream merged (parity-kotlin had no path filter and ran on the Go PRs #11-#17, red while Kotlin was incomplete). Task prompt only; the agent committed `c77324c`: `on: pull_request: paths: [kotlin/**, .github/workflows/parity-kotlin.yml]` (+5/-1). No code change.
+- Oracle after it (orchestrator, oracle checkout): re-verified at c77324c: check 130/130, contract 125/125, black-box 16/16, diff seeds 42, 7 and 20261126 0/1000 each — `kotlin-parity.md`
+- Interventions: none (a task prompt from the coordinator's request, not a fix of agent output)
+
+Prompt (verbatim, `runs/kotlin/prompts/10-parity-paths.txt`):
+
+```text
+PRICE-42, Kotlin stream, slice 6 of 6: parity (addition). Branch: PRICE-42-kotlin-parity.
+
+The Go stream now shares this repo and its PRs only touch go/. Change .github/workflows/parity-kotlin.yml so the parity-kotlin workflow runs only on pull requests that change kotlin/** or the workflow file itself. Commit that on this branch (nothing else needs to change).
+
+Rules (all slices):
+- Read AGENTS.md, docs/specs/PRICE-42.md, parity/README.md and the accepted plan docs/plans/PRICE-42-kotlin.md first.
+- You are already on the slice branch, created from origin/main. Do not create, switch, rebase or push branches; the orchestrator pushes and opens the PR.
+- All code in kotlin/. Nothing else at the repo root except .github/workflows/parity-kotlin.yml. Never edit parity/, contracts/, bench/ or .claude/. Do not write files under docs/evidence/ (the orchestrator writes evidence). Spec non-goals apply: no new endpoints, fields, messages or status codes.
+- Java 21, Gradle wrapper in kotlin/, BigDecimal money, PORT env var (default 8082).
+- Keep this slice under 400 changed lines as the diff-size gate counts them (added + deleted vs origin/main; gradlew, gradlew.bat, **/gradle/wrapper/**, lockfiles and docs/evidence/** excluded). Check with git diff --numstat origin/main before you finish.
+- The TS reference runs at http://localhost:8093 (do not start or stop it). Run your candidate only on PORT=8083, never on 8082, 8084 or 8094, and stop the candidate process you started before you finish. Do not run the benchmark.
+- Oracle commands (repo root): node parity/check.mjs --base http://localhost:8083 ; node parity/contract.mjs --base http://localhost:8083 ; node parity/blackbox/run.mjs --base http://localhost:8083 ; node parity/diff/diff.mjs --a http://localhost:8093 --b http://localhost:8083 --seed 42 --n 1000
+- Commit your work (one or a few commits). Every commit message ends with exactly these trailer lines as its last paragraph:
+  Refs: PRICE-42
+  Assisted-by: Claude Code (claude-opus-5-5)
+- Finish with a clean working tree and a short report: what you built, changed-line count, build result, oracle counts.
+```
+
+## Seeded red (human intervention #2, after convergence)
+
+- The calculation slice (iteration 04) and the first HTTP run (iteration 07) got the rounding right: `trap-cart-discount-tie-even` passed the first time it ran over HTTP (locally, and in CI run 45240402180 where the corpus step was 130/130). No natural red, so nothing was tagged `price-42-kotlin-red`.
+- The only natural red of the parity gate after `/quote` existed was a workflow defect: run [45240402180](https://github.com/koldovsky/2026-spd-shop-pricing/actions/runs/45240402180) failed at the Contract step (`Cannot find package 'yaml'`, no `npm ci`); the agent fixed it in iteration 08 from the failing output only; green in run [45240871878](https://github.com/koldovsky/2026-spd-shop-pricing/actions/runs/45240871878).
+- **Intervention #2 (SEEDED):** branch `PRICE-42-kotlin-seeded-halfup` from the converged revision 79dcaa9; the orchestrator changed `RoundingMode.HALF_EVEN` to `HALF_UP` in `cents()` only (commit d7d927a), plus an evidence commit ea6bd90 (`kotlin-seeded-halfup.md`). PR [#21](https://github.com/koldovsky/2026-spd-shop-pricing/pull/21), base `PRICE-42-kotlin-parity`, label "SEEDED DEFECT". parity-kotlin run [45241985376](https://github.com/koldovsky/2026-spd-shop-pricing/actions/runs/45241985376) is **red at the Build step**: the agent's own unit tests fail (3/45, incl. the 1348.5 tie case) before `check.mjs` runs. Oracle verdict on the seeded jar (local, built with `-x test`): corpus 126/130 with `trap-cart-discount-tie-even` failing, black-box 15/16, diff seed 42 77/1000, contract 125/125. Annotated tag `price-42-kotlin-seeded` on ea6bd90. PR closed unmerged.
+
+## Totals (from the raw JSON)
+
+Script `runs/kotlin/sum-runs.mjs` (in full below), run as `node docs/evidence/PRICE-42/runs/kotlin/sum-runs.mjs docs/evidence/PRICE-42/runs/kotlin`:
+
+```text
+01-plan.json	turns=11	cost_usd=0.6127	duration_ms=75551	is_error=false	subtype=success	denials=2
+02-skeleton.json	turns=27	cost_usd=0.7397	duration_ms=79922	is_error=false	subtype=success	denials=8
+03-skeleton.json	turns=22	cost_usd=0.6302	duration_ms=63717	is_error=false	subtype=success	denials=9
+04-pricing-core.json	turns=18	cost_usd=0.7879	duration_ms=100503	is_error=false	subtype=success	denials=5
+05-json.json	turns=24	cost_usd=1.0367	duration_ms=134036	is_error=false	subtype=success	denials=7
+06-prices.json	turns=38	cost_usd=1.3132	duration_ms=150921	is_error=false	subtype=success	denials=10
+07-quote.json	turns=43	cost_usd=1.3347	duration_ms=157239	is_error=false	subtype=success	denials=13
+08-quote-fix.json	turns=14	cost_usd=0.4137	duration_ms=30090	is_error=false	subtype=success	denials=6
+09-parity.json	turns=17	cost_usd=0.5677	duration_ms=45839	is_error=false	subtype=success	denials=6
+10-parity-paths.json	turns=5	cost_usd=0.3011	duration_ms=13743	is_error=false	subtype=success	denials=0
+TOTAL iterations=10 turns=219 cost_usd=7.7377 duration_ms=851561 (14.2 min) duration_api_ms=771414
+```
+
+```js
+// Sums the raw claude -p results of the Kotlin stream. Usage: node sum-runs.mjs <dir with NN-*.json>
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+const dir = process.argv[2] ?? ".";
+const files = readdirSync(dir).filter((f) => /^\d\d-.*\.json$/.test(f)).sort();
+let cost = 0, turns = 0, ms = 0, apiMs = 0;
+for (const f of files) {
+  const j = JSON.parse(readFileSync(join(dir, f), "utf8"));
+  cost += j.total_cost_usd; turns += j.num_turns; ms += j.duration_ms; apiMs += j.duration_api_ms;
+  console.log(`${f}\tturns=${j.num_turns}\tcost_usd=${j.total_cost_usd.toFixed(4)}\tduration_ms=${j.duration_ms}\tis_error=${j.is_error}\tsubtype=${j.subtype}\tdenials=${(j.permission_denials ?? []).length}`);
+}
+console.log(`TOTAL iterations=${files.length} turns=${turns} cost_usd=${cost.toFixed(4)} duration_ms=${ms} (${(ms / 60000).toFixed(1)} min) duration_api_ms=${apiMs}`);
+```
+
+- Iterations: 10 of 12 (converged after iteration 09; iteration 10 changed only the workflow trigger at the coordinator's request). Agent wall-clock (sum of `wall_s`): 884 s. Stream wall-clock from the first agent call (20:05) to verified convergence (79dcaa9, about 20:44): about 40 min; to the end of this log about 50 min; setup before that about 15 min. The 6 h cap was not approached.
+- Interventions: 2 (#1 copy of `gradle-wrapper.properties`, #2 the seeded half-up line). Not counted: the 0.345 USD smoke call before iteration 01, one CI re-run after a Maven Central 429 (run 45237605180).
+
+## Final state
+
+- Final verified commit: `c77324c` on `PRICE-42-kotlin-parity` (code identical to the converged 79dcaa9; only the workflow trigger differs), merged to main as "Merge PRICE-42 kotlin: parity".
+- LOC in `kotlin/` (method: `git ls-files kotlin/src/<set> | xargs cat | wc -l`; non-blank via `grep -cv '^s*$'`): main 530 lines (464 non-blank) in 6 files; tests 373 (311 non-blank) in 5 files; build scripts 30 lines; README 60. HTTP stack: `com.sun.net.httpserver`, hand-written JSON, no runtime dependency besides the Kotlin stdlib.
+- Build: Git Bash `kotlin/gradlew -p kotlin build`; PowerShell 5.1 and cmd `kotlingradlew.bat -p kotlin build` (both checked, exit 0; with a forward slash it fails in cmd). There is no single build line for all three shells.
+- Jar: `kotlin/build/libs/pricing.jar`, 1869436 bytes.
+- Production start used for the final check: `java -jar D:/demo-s2/pricing-kotlin/kotlin/build/libs/pricing.jar` with PORT=8083 (from the repo root: `java -jar kotlin/build/libs/pricing.jar`; PORT default 8082). It started and passed `check.mjs` 130/130. Bench command for the presenter (not run here): `node bench/run.mjs --label kotlin --cmd "java -jar kotlin/build/libs/pricing.jar" --out docs/evidence/PRICE-42/bench-kotlin.json` (bench sets PORT itself).
+- Not benchmarked (by the brief). Non-gating quirks: 2/6 match TS; `currency=toString`-style keys give 422 instead of 500, and `GET /catalog/` gives 404.
+- An earlier `redact.mjs` (on main since PR #16) contained the Windows user name in its pattern; the current one uses `os.homedir()`. History not rewritten.

@@ -8,3 +8,4 @@ run "Contract" node parity/contract.mjs --base http://localhost:8083
 run "Black-box" node parity/blackbox/run.mjs --base http://localhost:8083
 run "Differential, seed 42" node parity/diff/diff.mjs --a http://localhost:8093 --b http://localhost:8083 --seed 42 --n 1000
 [ "${2:-}" = "final" ] && run "Differential, seed 7" node parity/diff/diff.mjs --a http://localhost:8093 --b http://localhost:8083 --seed 7 --n 1000
+[ "${2:-}" = "final" ] && run "Differential, seed 20261126 (not used by the agent)" node parity/diff/diff.mjs --a http://localhost:8093 --b http://localhost:8083 --seed 20261126 --n 1000
