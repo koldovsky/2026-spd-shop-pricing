@@ -1,0 +1,223 @@
+openapi: 3.1.0
+info:
+  title: shop-pricing
+  version: 1.0.0
+  summary: Catalog prices, discounts, VAT and currency conversion for the Shop demo system.
+  description: |
+    Contract of the TypeScript reference service as it behaves today (PRICE-42 oracle). Any implementation
+    (TypeScript, Kotlin, Go) must satisfy it; behaviour beyond the schemas is pinned by the golden corpus in
+    `parity/corpus/corpus.json`, which wins over this file if the two ever disagree.
+
+    Consumers: shop-web (`GET /catalog`, `GET /prices/{sku}`), shop-orders (`POST /quote`, reads `totalCents`).
+
+    **Money.** Every amount is an integer number of cents in the requested currency, serialised as an integer
+    JSON literal (`10788`, never `10788.0` or `1.0788e4`).
+
+    **Pricing rules.** Base prices are in EUR cents. Rates are fixed: EUR 1, USD 1.0825, UAH 45.6.
+    1. unit = base x rate (exact decimal).
+    2. Line discount: 15% promo on SKU-3, 5% bulk when the line has 10+ units; the larger applies, not both.
+       discount = unit x quantity x pct; line = unit x quantity - discount (both exact).
+    3. Cart discount: 3% of the subtotal (sum of rounded line totals) when the subtotal is at least 200.00 EUR
+       (subtotal / rate / 100 >= 200).
+    4. VAT 20% on subtotal - rounded cart discount. total = taxable + rounded tax.
+    Rounding (ADR-007): **half-even**, to whole cents, once per line value (unitCents, discountCents, lineCents)
+    and once per total (cartDiscountCents, taxCents). The unit price is never rounded before it is multiplied.
+    Example: 5 x SKU-1 in EUR, cart discount 44950 x 3% = 1348.5 -> **1348** (half-up would give 1349).
+
+    **Errors.** Every error the service raises is `application/json` `{ "error": "<message>" }`:
+    400 malformed request, 404 unknown SKU, 422 business-rule violation. (`.claude/rules/api-errors.md` says
+    400 for business rules; the service returns 422 and this contract follows the service.)
+    Validation order for `POST /quote`: body shape (400) -> empty lines (422) -> currency (422) -> then each line in
+    order: quantity (422) before SKU (404); the first failing line wins. For `GET /prices/{sku}`: SKU (404) before
+    currency (422).
+
+    **Not part of the contract** (recorded as non-gating quirks in the corpus): HTTP 500 `{"error":"internal error"}`
+    for currency values that are inherited JavaScript object keys (`toString`, `__proto__`, `constructor`, ...),
+    for `null` quote lines and for bodies over 100 kB; Express's HTML 404 page for unknown routes and methods
+    (only the status 404 is contract); `GET /catalog/` with a trailing slash.
+
+    **Runtime.** The service listens on the port in the `PORT` environment variable (default 8082).
+servers:
+  - url: http://localhost:8082
+    description: local development (npm start)
+paths:
+  /catalog:
+    get:
+      operationId: listCatalog
+      summary: All products (SKU and name), in catalog order.
+      responses:
+        "200":
+          description: The catalog.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/CatalogItem" }
+              example:
+                - { sku: SKU-1, name: Mechanical keyboard }
+                - { sku: SKU-2, name: USB-C dock }
+                - { sku: SKU-3, name: 27-inch monitor }
+                - { sku: SKU-4, name: Desk lamp }
+                - { sku: SKU-5, name: Laptop stand }
+  /prices/{sku}:
+    get:
+      operationId: getPrice
+      summary: Base unit price of one SKU in one currency (no discounts, no VAT).
+      parameters:
+        - name: sku
+          in: path
+          required: true
+          description: Case-sensitive SKU, percent-decoded (`SKU%2D4` is `SKU-4`).
+          schema: { type: string }
+        - name: currency
+          in: query
+          required: false
+          description: |
+            EUR, USD or UAH (case-sensitive). Missing -> EUR. Empty, unknown or repeated
+            (`?currency=EUR&currency=USD` is read as `EUR,USD`) -> 422. Other keys such as `currency[]` or
+            `Currency` are ignored, so the currency defaults to EUR.
+          schema: { type: string, default: EUR }
+      responses:
+        "200":
+          description: Unit price; `currency` echoes the requested currency.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Price" }
+              example: { sku: SKU-4, currency: USD, baseCents: 3608 }
+        "404":
+          description: Unknown SKU (checked before the currency). Message `unknown sku <sku>`.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+              example: { error: unknown sku SKU-9 }
+        "422":
+          description: Unsupported currency. Message `unsupported currency <value>`.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+              example: { error: unsupported currency GBP }
+  /quote:
+    post:
+      operationId: quote
+      summary: Price a cart (line discounts, cart discount, VAT). Lines are priced separately and never merged.
+      requestBody:
+        required: true
+        description: |
+          Must be sent as `application/json` (any charset). Another or missing content type is treated as an
+          empty body (400). Unknown fields are ignored and not echoed. A JSON number is a valid quantity when its
+          value is an integer (`1.0` and `1e2` are accepted). For duplicate keys the last one wins.
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/QuoteRequest" }
+            example: { currency: EUR, lines: [{ sku: SKU-1, quantity: 5 }] }
+      responses:
+        "200":
+          description: The priced cart.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Quote" }
+              example:
+                currency: EUR
+                lines: [{ sku: SKU-1, quantity: 5, unitCents: 8990, discountCents: 0, lineCents: 44950 }]
+                subtotalCents: 44950
+                cartDiscountCents: 1348
+                taxCents: 8720
+                totalCents: 52322
+        "400":
+          description: |
+            `malformed JSON` (unparseable body, or a JSON value that is not an object or array, e.g. `null`), or
+            `body must be { currency, lines: [{ sku, quantity }] }` (currency not a string, lines not an array,
+            empty body, non-JSON content type).
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+              examples:
+                malformed: { value: { error: malformed JSON } }
+                shape: { value: { error: "body must be { currency, lines: [{ sku, quantity }] }" } }
+        "404":
+          description: Unknown SKU in a line. Message `unknown sku <sku>`.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+              example: { error: unknown sku SKU-9 }
+        "422":
+          description: |
+            `at least one line is required` (empty lines, checked before the currency) ·
+            `unsupported currency <value>` · `quantity for <sku> must be 1..100` (not an integer in 1..100).
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+              examples:
+                empty: { value: { error: at least one line is required } }
+                currency: { value: { error: unsupported currency GBP } }
+                quantity: { value: { error: quantity for SKU-1 must be 1..100 } }
+components:
+  schemas:
+    Currency:
+      type: string
+      enum: [EUR, USD, UAH]
+    Cents:
+      type: integer
+      format: int64
+      minimum: 0
+      description: Whole cents of the response currency.
+    CatalogItem:
+      type: object
+      additionalProperties: false
+      required: [sku, name]
+      properties:
+        sku: { type: string }
+        name: { type: string }
+    Price:
+      type: object
+      additionalProperties: false
+      required: [sku, currency, baseCents]
+      properties:
+        sku: { type: string }
+        currency: { $ref: "#/components/schemas/Currency" }
+        baseCents: { $ref: "#/components/schemas/Cents" }
+    QuoteRequest:
+      type: object
+      required: [currency, lines]
+      properties:
+        currency: { type: string, description: "EUR, USD or UAH; anything else is 422" }
+        lines:
+          type: array
+          description: At least one line (an empty array is 422).
+          items: { $ref: "#/components/schemas/QuoteLineRequest" }
+    QuoteLineRequest:
+      type: object
+      required: [sku, quantity]
+      properties:
+        sku: { type: string }
+        quantity: { type: integer, minimum: 1, maximum: 100 }
+    PricedLine:
+      type: object
+      additionalProperties: false
+      required: [sku, quantity, unitCents, discountCents, lineCents]
+      properties:
+        sku: { type: string }
+        quantity: { type: integer, minimum: 1, maximum: 100 }
+        unitCents: { $ref: "#/components/schemas/Cents" }
+        discountCents: { $ref: "#/components/schemas/Cents" }
+        lineCents: { $ref: "#/components/schemas/Cents" }
+    Quote:
+      type: object
+      additionalProperties: false
+      required: [currency, lines, subtotalCents, cartDiscountCents, taxCents, totalCents]
+      properties:
+        currency: { $ref: "#/components/schemas/Currency" }
+        lines:
+          type: array
+          minItems: 1
+          items: { $ref: "#/components/schemas/PricedLine" }
+        subtotalCents: { $ref: "#/components/schemas/Cents" }
+        cartDiscountCents: { $ref: "#/components/schemas/Cents" }
+        taxCents: { $ref: "#/components/schemas/Cents" }
+        totalCents: { $ref: "#/components/schemas/Cents" }
+    Error:
+      type: object
+      additionalProperties: false
+      required: [error]
+      properties:
+        error: { type: string, minLength: 1 }

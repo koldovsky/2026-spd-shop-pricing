@@ -11,7 +11,9 @@
     "start": "tsx src/server.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "parity:record": "node parity/record.mjs"
+    "parity:record": "node parity/record.mjs",
+    "parity:check": "node parity/check.mjs",
+    "parity:contract": "node parity/contract.mjs"
   },
   "dependencies": {
     "decimal.js": "10.6.0",
@@ -22,6 +24,7 @@
     "@types/node": "24.19.2",
     "tsx": "4.23.15",
     "typescript": "5.9.3",
-    "vitest": "5.1.0"
+    "vitest": "5.1.0",
+    "yaml": "2.9.1"
   }
 }
