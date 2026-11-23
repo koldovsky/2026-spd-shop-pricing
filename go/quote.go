@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"math/big"
 	"net/http"
 )
@@ -48,15 +47,12 @@ type quoteError struct {
 func newRat(n int64) *big.Rat { return new(big.Rat).SetInt64(n) }
 
 // quote mirrors src/pricing.ts quote, including the exact rounding order (ADR-007).
-// Validation here is minimal; the full TS validation order is slice 4.
+// Lines must already have passed validateLines (quantity 1..100); unknown SKUs are still rejected.
 func quote(currency string, lines []quoteLine) (*quoteResponse, *quoteError) {
-	if len(lines) == 0 {
-		return nil, &quoteError{http.StatusUnprocessableEntity, "at least one line is required"}
+	if qerr := checkCart(currency, len(lines)); qerr != nil {
+		return nil, qerr
 	}
-	rate, ok := Rates[currency]
-	if !ok {
-		return nil, &quoteError{http.StatusUnprocessableEntity, "unsupported currency " + currency}
-	}
+	rate := Rates[currency]
 	priced := make([]pricedLine, 0, len(lines))
 	subtotal := new(big.Rat)
 	for _, l := range lines {
@@ -97,23 +93,37 @@ func quote(currency string, lines []quoteLine) (*quoteResponse, *quoteError) {
 	}, nil
 }
 
+// checkCart applies the cart-level TS checks in order: empty lines, then currency.
+func checkCart(currency string, n int) *quoteError {
+	if n == 0 {
+		return &quoteError{http.StatusUnprocessableEntity, "at least one line is required"}
+	}
+	if _, ok := Rates[currency]; !ok {
+		return &quoteError{http.StatusUnprocessableEntity, "unsupported currency " + currency}
+	}
+	return nil
+}
+
 func handleQuote(w http.ResponseWriter, r *http.Request) {
-	var body struct {
-		Currency *string     `json:"currency"`
-		Lines    []quoteLine `json:"lines"`
-	}
-	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
-		writeJSON(w, http.StatusBadRequest, apiError{"malformed JSON"})
-		return
-	}
-	if body.Currency == nil || body.Lines == nil {
-		writeJSON(w, http.StatusBadRequest, apiError{"body must be { currency, lines: [{ sku, quantity }] }"})
-		return
-	}
-	q, qerr := quote(*body.Currency, body.Lines)
+	q, qerr := handleQuoteBody(r)
 	if qerr != nil {
 		writeJSON(w, qerr.status, apiError{qerr.msg})
 		return
 	}
 	writeJSON(w, http.StatusOK, q)
+}
+
+func handleQuoteBody(r *http.Request) (*quoteResponse, *quoteError) {
+	currency, raw, qerr := decodeQuoteBody(r)
+	if qerr != nil {
+		return nil, qerr
+	}
+	if qerr := checkCart(currency, len(raw)); qerr != nil {
+		return nil, qerr
+	}
+	lines, qerr := validateLines(raw)
+	if qerr != nil {
+		return nil, qerr
+	}
+	return quote(currency, lines)
 }
