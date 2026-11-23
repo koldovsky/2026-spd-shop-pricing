@@ -1,0 +1,5 @@
+# Recorded oracle data: byte-stable across checkouts (sha256 quoted in docs/evidence/PRICE-42/), and machine output,
+# so it is marked generated (GitHub collapses it; the diff-size gate does not count it).
+parity/corpus/corpus.json  text eol=lf linguist-generated=true
+bench/results/*.json       text eol=lf linguist-generated=true
+contracts/*.yaml           text eol=lf
