@@ -72,3 +72,77 @@ fun pricesResponse(rawSku: String, rawQuery: String?): JsonResponse = try {
 } catch (e: InternalError) {
     errorResponse(500, "internal error")
 }
+
+/** body-parser `json()` default limit (100 kB). */
+const val BODY_LIMIT = 100 * 1024
+
+private const val SHAPE = "body must be { currency, lines: [{ sku, quantity }] }"
+
+/**
+ * What `express.json()` leaves in `req.body`: null when the type is not `application/json` or the body is empty
+ * (the route then sees `{}`); a non-UTF charset or an oversized body fails outside the route (500).
+ */
+fun parseBody(contentType: String?, body: ByteArray): JsonValue? {
+    val parts = contentType?.split(';')?.map { it.trim() } ?: return null
+    if (!parts[0].equals("application/json", ignoreCase = true)) return null
+    if (body.size > BODY_LIMIT) throw InternalError("request entity too large")
+    val charset = parts.drop(1).map { it.split('=', limit = 2) }
+        .lastOrNull { it.size == 2 && it[0].trim().equals("charset", ignoreCase = true) }
+        ?.get(1)?.trim()?.trim('"')?.lowercase() ?: "utf-8"
+    if (!charset.startsWith("utf-")) throw InternalError("unsupported charset")
+    if (body.isEmpty()) return null
+    val cs = runCatching { java.nio.charset.Charset.forName(charset) }.getOrElse { throw InternalError("unsupported charset") }
+    return Json.parseStrict(String(body, cs).removePrefix("﻿"))
+}
+
+/** JS `String(value)` / template-literal form, used in error messages. */
+fun jsString(v: JsonValue?): String = when (v) {
+    null -> "undefined"
+    JsonNull -> "null"
+    is JsonString -> v.value
+    is JsonBool -> v.value.toString()
+    is JsonNumber -> jsNumber(v.text.toDouble())
+    is JsonObject -> "[object Object]"
+    is JsonArray -> v.items.joinToString(",") { if (it == JsonNull) "" else jsString(it) }
+}
+
+private fun jsNumber(d: Double): String = when {
+    d.isInfinite() -> if (d > 0) "Infinity" else "-Infinity"
+    d == 0.0 -> "0"
+    d == Math.rint(d) && Math.abs(d) < 1e21 -> java.math.BigDecimal(d).toPlainString()
+    Math.abs(d) >= 1e-6 && Math.abs(d) < 1e21 -> d.toString()
+    else -> d.toString().replace(".0E", "E").replace("E-", "e-").replace("E", "e+")
+}
+
+/** `const { sku, quantity } = line`: properties of a non-object are undefined; null throws (TypeError → 500). */
+private fun quoteLine(line: JsonValue): QuoteLine {
+    if (line == JsonNull) throw InternalError("cannot destructure null")
+    val fields = (line as? JsonObject)?.fields ?: emptyMap()
+    val sku = fields["sku"]
+    val quantity = (fields["quantity"] as? JsonNumber)?.jsValue
+    return QuoteLine(jsString(sku), quantity, sku is JsonString)
+}
+
+/** POST /quote — shape 400, then `Pricing.quote` validation; `malformed JSON` for parse errors. */
+fun quoteResponse(contentType: String?, body: ByteArray): JsonResponse = try {
+    val req = parseBody(contentType, body) as? JsonObject
+    val currency = req?.get("currency") as? JsonString
+    val lines = req?.get("lines") as? JsonArray
+    if (currency == null || lines == null) throw PricingError(SHAPE, 400)
+    val q = quote(currency.value, lines.items.map(::quoteLine))
+    JsonResponse(200, Json.write(linkedMapOf(
+        "currency" to q.currency,
+        "lines" to q.lines.map {
+            linkedMapOf("sku" to it.sku, "quantity" to it.quantity, "unitCents" to it.unitCents,
+                "discountCents" to it.discountCents, "lineCents" to it.lineCents)
+        },
+        "subtotalCents" to q.subtotalCents, "cartDiscountCents" to q.cartDiscountCents,
+        "taxCents" to q.taxCents, "totalCents" to q.totalCents,
+    )))
+} catch (e: PricingError) {
+    errorResponse(e.status, e.message ?: "")
+} catch (e: JsonSyntaxError) {
+    errorResponse(400, "malformed JSON")
+} catch (e: InternalError) {
+    errorResponse(500, "internal error")
+}
