@@ -1,0 +1,1 @@
+{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"node parity/check.mjs --base http://localhost:8090 2>&1 | tee docs/evidence/PRICE-42/kotlin-parity.txt"}}

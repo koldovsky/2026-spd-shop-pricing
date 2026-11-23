@@ -1,0 +1,1 @@
+{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"node bench/run.mjs --label go --cmd \"go/pricing.exe\" --out docs/evidence/PRICE-42/bench-go.json"}}

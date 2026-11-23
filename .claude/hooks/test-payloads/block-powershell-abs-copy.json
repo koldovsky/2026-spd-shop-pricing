@@ -1,0 +1,1 @@
+{"hook_event_name":"PreToolUse","tool_name":"PowerShell","tool_input":{"command":"Copy-Item C:\\tmp\\x.json -Destination __PROJECT_DIR__\\Parity\\corpus\\corpus.json"}}

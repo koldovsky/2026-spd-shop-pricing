@@ -1,0 +1,1 @@
+{"hook_event_name":"PreToolUse","tool_name":"PowerShell","tool_input":{"command":"Get-Content parity\\corpus\\corpus.json | Select-Object -First 20"}}

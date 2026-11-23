@@ -19,7 +19,8 @@
     "blackbox": "node parity/blackbox/run.mjs",
     "build": "tsc src/server.ts --outDir dist --target ES2022 --module NodeNext --moduleResolution NodeNext --strict --skipLibCheck --esModuleInterop",
     "bench": "node bench/run.mjs",
-    "bench:ts": "npm run build && node bench/run.mjs --label ts --cmd \"node dist/server.js\""
+    "bench:ts": "npm run build && node bench/run.mjs --label ts --cmd \"node dist/server.js\"",
+    "hook:test": "node .claude/hooks/test-protect-oracle.mjs"
   },
   "dependencies": {
     "decimal.js": "10.6.0",
