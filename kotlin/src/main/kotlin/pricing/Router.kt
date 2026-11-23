@@ -8,18 +8,33 @@ class Router : HttpHandler {
     override fun handle(ex: HttpExchange) {
         ex.use {
             val path = ex.requestURI.rawPath
+            val get = ex.requestMethod == "GET" || ex.requestMethod == "HEAD"
+            val sku = priceSku(path)
             when {
-                ex.requestMethod == "GET" && path == "/catalog" -> send(ex, 200, catalogJson())
+                get && path.equals("/catalog", ignoreCase = true) -> send(ex, JsonResponse(200, catalogJson()))
+                get && sku != null -> send(ex, pricesResponse(sku, ex.requestURI.rawQuery))
                 else -> notFound(ex)
             }
         }
     }
 
-    private fun send(ex: HttpExchange, status: Int, json: String) {
-        val bytes = json.toByteArray(Charsets.UTF_8)
+    /** Express `/prices/:sku`: case-insensitive prefix, one non-empty segment, optional trailing slash. */
+    private fun priceSku(path: String): String? {
+        if (!path.regionMatches(0, "/prices/", 0, 8, ignoreCase = true)) return null
+        val sku = path.substring(8).removeSuffix("/")
+        return sku.takeIf { it.isNotEmpty() && '/' !in it }
+    }
+
+    private fun send(ex: HttpExchange, res: JsonResponse) {
+        val bytes = res.body.toByteArray(Charsets.UTF_8)
         ex.responseHeaders.set("Content-Type", "application/json; charset=utf-8")
-        ex.sendResponseHeaders(status, bytes.size.toLong())
-        ex.responseBody.write(bytes)
+        if (ex.requestMethod == "HEAD") {
+            ex.responseHeaders.set("Content-Length", bytes.size.toString())
+            ex.sendResponseHeaders(res.status, -1)
+        } else {
+            ex.sendResponseHeaders(res.status, bytes.size.toLong())
+            ex.responseBody.write(bytes)
+        }
     }
 
     private fun notFound(ex: HttpExchange) {
