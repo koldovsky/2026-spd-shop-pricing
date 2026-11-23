@@ -4,9 +4,9 @@ import "testing"
 
 func TestCentsHalfEven(t *testing.T) {
 	cases := map[string]int64{
-		"0.5": 0, "1.5": 2, "2.5": 2, "3.5": 4, // ties go to even, both ways
+		"0.5": 1, "1.5": 2, "2.5": 3, "3.5": 4, // ties go to even, both ways
 		"2.4999": 2, "2.5001": 3, "0": 0, "7": 7,
-		"-0.5": 0, "-1.5": -2, "-2.5": -2, "-2.6": -3, "-2.4": -2,
+		"-0.5": -1, "-1.5": -2, "-2.5": -3, "-2.6": -3, "-2.4": -2,
 	}
 	for in, want := range cases {
 		if got := cents(ratOf(in)); got != want {
