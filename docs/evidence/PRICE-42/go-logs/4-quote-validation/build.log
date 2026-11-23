@@ -1,0 +1,15 @@
+# oracle run s4 at 6503919dda17a20ebd2cb337dd0d09c98b02b90e (2026-11-23T20:29:30+0200)
+$ git -C <clone> status --porcelain
+[end status]
+$ go version
+go version go1.27.4 windows/amd64
+$ go -C go vet ./...
+[exit 0]
+$ go -C go test ./...
+ok  	pricing	0.532s
+[exit 0]
+$ go -C go build -o D:/demo-s2/bin-go/pricing-6503919.exe .
+[exit 0]
+10016256 bytes D:/demo-s2/bin-go/pricing-6503919.exe
+candidate started: D:/demo-s2/bin-go/pricing-6503919.exe PID=64432; port 8084 owner PID=64432
+stopped PID 64432

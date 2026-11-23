@@ -1,0 +1,33 @@
+$ node parity/blackbox/run.mjs --base http://localhost:8084
+blackbox target=http://localhost:8084
+▶ unit prices (vitest: unit prices)
+  ✔ returns the base price in EUR (17.3252ms)
+  ✔ converts at the fixed rate and rounds half-even (3333 x 1.0825 = 3607.9725 -> 3608) (0.7697ms)
+  ✔ defaults to EUR when no currency is given (0.5142ms)
+  ✔ returns 404 with an error body for an unknown SKU (0.4914ms)
+✔ unit prices (vitest: unit prices) (19.7397ms)
+▶ quote (vitest: quote)
+  ✔ prices a small cart with VAT and no cart discount (0.9337ms)
+  ✔ uses the larger line discount, not both (15% of 249000, not 20%) (0.588ms)
+  ✔ adds the 3% cart discount from 200.00 EUR (259.00 -> 777) (0.4719ms)
+  ✔ rejects quantity 0 with 422 and a 1..100 message (0.5506ms)
+  ✔ rejects an unknown currency with 422 'unsupported' (0.6077ms)
+✔ quote (vitest: quote) (3.4047ms)
+▶ HTTP contract (consumers: shop-web, shop-orders)
+  ✔ GET /catalog lists sku and name only (0.9268ms)
+  ✔ POST /quote returns the full quote shape (shop-orders reads totalCents) (1.1608ms)
+  ✔ rounds the cart discount half-even (1348.5 -> 1348) (0.4074ms)
+  ✔ returns 400 'malformed JSON' for a broken body (0.4364ms)
+  ✔ returns 400 for a body without lines (0.4234ms)
+  ✔ returns 422 for an empty cart (0.3747ms)
+  ✔ returns 404 for an unknown SKU in a quote (0.4528ms)
+✔ HTTP contract (consumers: shop-web, shop-orders) (4.3804ms)
+ℹ tests 16
+ℹ suites 3
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 101.478
+[exit 0]
