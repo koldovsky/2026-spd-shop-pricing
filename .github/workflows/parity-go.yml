@@ -2,8 +2,20 @@
 name: parity-go
 on:
   pull_request:
+    paths:
+      - 'go/**'
+      - '.github/workflows/parity-go.yml'
+      - 'parity/**'
+      - 'contracts/**'
+      - 'package-lock.json'
   push:
     branches: [main]
+    paths:
+      - 'go/**'
+      - '.github/workflows/parity-go.yml'
+      - 'parity/**'
+      - 'contracts/**'
+      - 'package-lock.json'
 permissions:
   contents: read
 jobs:
@@ -42,3 +54,15 @@ jobs:
         run: node parity/check.mjs --base http://localhost:8090 --tag routing
       - name: oracle check --tag prices
         run: node parity/check.mjs --base http://localhost:8090 --tag prices
+      - name: oracle check --tag happy
+        run: node parity/check.mjs --base http://localhost:8090 --tag happy
+      - name: oracle check --tag bulk
+        run: node parity/check.mjs --base http://localhost:8090 --tag bulk
+      - name: oracle check --tag promo
+        run: node parity/check.mjs --base http://localhost:8090 --tag promo
+      - name: oracle check --tag cart-discount
+        run: node parity/check.mjs --base http://localhost:8090 --tag cart-discount
+      - name: oracle check --tag lines
+        run: node parity/check.mjs --base http://localhost:8090 --tag lines
+      - name: oracle check --tag rounding
+        run: node parity/check.mjs --base http://localhost:8090 --tag rounding

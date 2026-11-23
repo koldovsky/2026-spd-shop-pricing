@@ -1,0 +1,53 @@
+$ node parity/blackbox/run.mjs --base http://localhost:8084
+blackbox target=http://localhost:8084
+▶ unit prices (vitest: unit prices)
+  ✔ returns the base price in EUR (16.9101ms)
+  ✔ converts at the fixed rate and rounds half-even (3333 x 1.0825 = 3607.9725 -> 3608) (0.766ms)
+  ✔ defaults to EUR when no currency is given (0.7191ms)
+  ✔ returns 404 with an error body for an unknown SKU (0.5791ms)
+✔ unit prices (vitest: unit prices) (19.617ms)
+▶ quote (vitest: quote)
+  ✔ prices a small cart with VAT and no cart discount (1.1633ms)
+  ✔ uses the larger line discount, not both (15% of 249000, not 20%) (0.6397ms)
+  ✔ adds the 3% cart discount from 200.00 EUR (259.00 -> 777) (0.4733ms)
+  ✖ rejects quantity 0 with 422 and a 1..100 message (0.9456ms)
+  ✔ rejects an unknown currency with 422 'unsupported' (1.0218ms)
+✖ quote (vitest: quote) (4.5296ms)
+▶ HTTP contract (consumers: shop-web, shop-orders)
+  ✔ GET /catalog lists sku and name only (0.9432ms)
+  ✔ POST /quote returns the full quote shape (shop-orders reads totalCents) (0.6394ms)
+  ✔ rounds the cart discount half-even (1348.5 -> 1348) (0.3913ms)
+  ✔ returns 400 'malformed JSON' for a broken body (0.8894ms)
+  ✔ returns 400 for a body without lines (0.4323ms)
+  ✔ returns 422 for an empty cart (0.3657ms)
+  ✔ returns 404 for an unknown SKU in a quote (0.3824ms)
+✔ HTTP contract (consumers: shop-web, shop-orders) (4.2425ms)
+ℹ tests 16
+ℹ suites 3
+ℹ pass 15
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 105.4831
+
+✖ failing tests:
+
+test at parity\blackbox\http-suite.mjs:53:3
+✖ rejects quantity 0 with 422 and a 1..100 message (0.9456ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  200 !== 422
+  
+      at TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:55:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 200,
+    expected: 422,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+[exit 1]

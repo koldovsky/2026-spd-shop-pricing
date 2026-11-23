@@ -1,0 +1,12 @@
+PRICE-42 Go, slice 3 of the plan in docs/plans/PRICE-42-go.md: `go-quote-happy`. Slices 1 and 2 are merged. Implement slice 3 as planned, including the parity gate steps the plan lists for this slice. Keep the slice under 400 changed lines.
+
+One added requirement: the Kotlin stream's workflow .github/workflows/parity-kotlin.yml now shares this repo (do not touch it). Make parity-go.yml run on pull requests and pushes to main only when go/**, .github/workflows/parity-go.yml, parity/**, contracts/** or package-lock.json change.
+
+Working rules for this step:
+- Environment: `go` (1.27) is on PATH; PORT=8084 is already set in your environment, so a candidate you start listens on http://localhost:8084. The TypeScript reference service is already running at http://localhost:8094 (do not stop it). Use `go -C go <cmd>` (for example `go -C go test ./...`, `go -C go build -o pricing.exe .`, `go -C go run .`) instead of `cd`. Start the candidate in the background when you need it and stop it before you finish.
+- Oracle commands (run them, never edit parity/, contracts/, bench/ or .claude/): `node parity/check.mjs --base http://localhost:8084 [--tag <tag>]`, `node parity/contract.mjs --base http://localhost:8084`, `node parity/blackbox/run.mjs --base http://localhost:8084`, `node parity/diff/diff.mjs --a http://localhost:8094 --b http://localhost:8084 --seed 42 --n 1000`. Do not run the benchmark.
+- Do not push, do not create or switch branches, do not write evidence files under docs/evidence/ (the orchestrator records evidence). Do not commit build outputs (binaries).
+- Commit your work (only files under go/, .github/workflows/parity-go.yml and docs/plans/PRICE-42-go.md) in one or more commits; the last paragraph of every commit message is exactly these two trailer lines:
+Refs: PRICE-42
+Assisted-by: Claude Code (claude-opus-5-5)
+- Everything in English. When done, report what you changed, the oracle results you saw, and anything you are unsure about.

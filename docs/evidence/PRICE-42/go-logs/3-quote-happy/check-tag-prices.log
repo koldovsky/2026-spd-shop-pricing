@@ -1,0 +1,12 @@
+$ node parity/check.mjs --base http://localhost:8084 --tag prices
+parity:check target=http://localhost:8084
+corpus D:\demo-s2\oracle-go\parity\corpus\corpus.json sha256=0211ef856e503d89… recorded from http://localhost:8082 at 25f3e2b940ad
+
+quirk differs (not gating) quirk-prices-currency-toString: status: expected 500, got 422; $.error: expected "internal error", got "unsupported currency toString"
+
+quirk differs (not gating) quirk-prices-currency-proto: status: expected 500, got 422; $.error: expected "internal error", got "unsupported currency __proto__"
+
+gating: 33/33 passed
+quirks (not gating): 0/2 same as reference
+RESULT: PASS
+[exit 0]

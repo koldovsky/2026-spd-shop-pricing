@@ -1,0 +1,15 @@
+# oracle run s3 at 09bbb2cf5f3513c325347af7ce9548fc53a51a64 (2026-11-23T20:24:42+0200)
+$ git -C <clone> status --porcelain
+[end status]
+$ go version
+go version go1.27.4 windows/amd64
+$ go -C go vet ./...
+[exit 0]
+$ go -C go test ./...
+ok  	pricing	0.564s
+[exit 0]
+$ go -C go build -o D:/demo-s2/bin-go/pricing-09bbb2c.exe .
+[exit 0]
+9997312 bytes D:/demo-s2/bin-go/pricing-09bbb2c.exe
+candidate started: D:/demo-s2/bin-go/pricing-09bbb2c.exe PID=89144; port 8084 owner PID=89144
+stopped PID 89144
