@@ -1,0 +1,6 @@
+$ node parity/contract.mjs --base http://localhost:8082
+contract target=http://localhost:8082 spec=contracts/openapi.yaml (shop-pricing 1.0.0)
+
+contract: 125/125 gating corpus requests conform (status-only cases excluded)
+RESULT: PASS
+[exit 0]

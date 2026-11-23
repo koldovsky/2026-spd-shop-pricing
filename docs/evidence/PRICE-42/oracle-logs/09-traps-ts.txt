@@ -1,0 +1,19 @@
+$ node parity/traps.mjs --base http://localhost:8082
+traps: single-line quotes: EUR/USD/UAH x SKU-1..SKU-5 x quantity 1..100 against http://localhost:8082 (1500 requests)
+  floatHalfUp       137/1500 quotes differ; fields: discountCents=62, lineCents=61, subtotalCents=61, cartDiscountCents=15, taxCents=16, totalCents=74
+      e.g. EUR SKU-1 x5: cartDiscountCents service=1348 model=1349; totalCents service=52322 model=52321  ties: {"cartDiscountCents":"1348.5 (floor even)"}
+      e.g. EUR SKU-1 x11: discountCents service=4944 model=4945  ties: {"discountCents":"4944.5 (floor even)","lineCents":"93945.5 (floor odd)"}
+      e.g. EUR SKU-1 x13: lineCents service=111026 model=111027; subtotalCents service=111026 model=111027; totalCents service=129234 model=129235  ties: {"discountCents":"5843.5 (floor odd)","lineCents":"111026.5 (floor even)"}
+      e.g. EUR SKU-1 x15: discountCents service=6742 model=6743  ties: {"discountCents":"6742.5 (floor even)","lineCents":"128107.5 (floor odd)"}
+  floatHalfEven       0/1500 quotes differ; fields: -
+  roundUnitFirst    573/1500 quotes differ; fields: discountCents=350, lineCents=572, subtotalCents=572, cartDiscountCents=207, taxCents=482, totalCents=572
+      e.g. USD SKU-1 x2: lineCents service=19463 model=19464; subtotalCents service=19463 model=19464; totalCents service=23356 model=23357
+      e.g. USD SKU-1 x3: lineCents service=29195 model=29196; subtotalCents service=29195 model=29196; totalCents service=33983 model=33984
+      e.g. USD SKU-1 x4: lineCents service=38927 model=38928; subtotalCents service=38927 model=38928; totalCents service=45311 model=45312
+      e.g. USD SKU-1 x5: lineCents service=48658 model=48660; subtotalCents service=48658 model=48660; totalCents service=56638 model=56640
+  subtractRounded   144/1500 quotes differ; fields: lineCents=144, subtotalCents=144, cartDiscountCents=4, taxCents=27, totalCents=140
+      e.g. USD SKU-1 x16: lineCents service=147921 model=147922; subtotalCents service=147921 model=147922; totalCents service=172180 model=172181
+      e.g. USD SKU-1 x17: lineCents service=157167 model=157166; subtotalCents service=157167 model=157166; totalCents service=182942 model=182941
+      e.g. USD SKU-1 x18: lineCents service=166412 model=166411; subtotalCents service=166412 model=166411; totalCents service=193704 model=193703
+      e.g. USD SKU-1 x23: lineCents service=212637 model=212638; subtotalCents service=212637 model=212638; totalCents service=247510 model=247511
+[exit 0]

@@ -1,0 +1,15 @@
+$ npm test
+
+> shop-pricing@1.0.0 test
+> vitest run
+
+
+ RUN  v5.1.0 D:/projects/clients/spd-technology/demo/2026-spd-shop-pricing
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  19:51:08
+   Duration  158ms (transform 60%, import 25%, tests 8%, worker 7%)
+
+[exit 0]

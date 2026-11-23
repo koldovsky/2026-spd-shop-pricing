@@ -1,0 +1,8 @@
+$ node .claude/hooks/protect-oracle.mjs < .claude/hooks/test-payloads/block-edit-relative.json
+Blocked by the PRICE-42 oracle lock: Edit on parity/corpus/corpus.json is inside parity/. parity/, contracts/ and bench/ are the oracle that judges this change; agents may run them but not change them. If the oracle is wrong, stop and ask a human (separate PR, CODEOWNERS review).
+[exit 2]
+$ node .claude/hooks/protect-oracle.mjs < .claude/hooks/test-payloads/allow-edit-src.json
+[exit 0]
+$ (PowerShell 5.1) Get-Content .claude/hooks/test-payloads/block-powershell-set-content.json | node .claude/hooks/protect-oracle.mjs; $LASTEXITCODE
+Blocked by the PRICE-42 oracle lock: "set-content" on a protected folder. parity/, contracts/ and bench/ are the oracle that judges this change; agents may run them but not change them. If the oracle is wrong, stop and ask a human (separate PR, CODEOWNERS review).
+[exit 2]

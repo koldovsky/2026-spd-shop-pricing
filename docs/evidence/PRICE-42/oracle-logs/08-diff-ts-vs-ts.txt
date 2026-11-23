@@ -1,0 +1,7 @@
+$ node parity/diff/diff.mjs --a http://localhost:8082 --b http://localhost:8083 --seed 42 --n 1000
+parity:diff A(reference)=http://localhost:8082 B(candidate)=http://localhost:8083 seed=42 n=1000
+
+reference statuses: 200=527 400=145 404=128 422=200
+by kind (mismatches/sent): unknown-sku 0/91, valid-quote 0/419, valid-price 0/83, malformed-json 0/65, bad-currency 0/74, bad-quantity 0/98, bad-shape 0/78, content-type 0/22, bad-price-query 0/70
+RESULT: PASS (0/1000 requests differ)
+[exit 0]

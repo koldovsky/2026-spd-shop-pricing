@@ -1,0 +1,53 @@
+$ node parity/blackbox/run.mjs --base http://localhost:8091
+blackbox target=http://localhost:8091
+▶ unit prices (vitest: unit prices)
+  ✔ returns the base price in EUR (18.4181ms)
+  ✔ converts at the fixed rate and rounds half-even (3333 x 1.0825 = 3607.9725 -> 3608) (0.8692ms)
+  ✔ defaults to EUR when no currency is given (0.5798ms)
+  ✔ returns 404 with an error body for an unknown SKU (0.6166ms)
+✔ unit prices (vitest: unit prices) (21.1557ms)
+▶ quote (vitest: quote)
+  ✔ prices a small cart with VAT and no cart discount (0.9986ms)
+  ✔ uses the larger line discount, not both (15% of 249000, not 20%) (0.6343ms)
+  ✔ adds the 3% cart discount from 200.00 EUR (259.00 -> 777) (0.5868ms)
+  ✔ rejects quantity 0 with 422 and a 1..100 message (0.7323ms)
+  ✔ rejects an unknown currency with 422 'unsupported' (0.645ms)
+✔ quote (vitest: quote) (3.8534ms)
+▶ HTTP contract (consumers: shop-web, shop-orders)
+  ✔ GET /catalog lists sku and name only (0.8784ms)
+  ✔ POST /quote returns the full quote shape (shop-orders reads totalCents) (0.6207ms)
+  ✖ rounds the cart discount half-even (1348.5 -> 1348) (1.5911ms)
+  ✔ returns 400 'malformed JSON' for a broken body (0.946ms)
+  ✔ returns 400 for a body without lines (0.5024ms)
+  ✔ returns 422 for an empty cart (0.4793ms)
+  ✔ returns 404 for an unknown SKU in a quote (0.548ms)
+✖ HTTP contract (consumers: shop-web, shop-orders) (5.8073ms)
+ℹ tests 16
+ℹ suites 3
+ℹ pass 15
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 104.79
+
+✖ failing tests:
+
+test at parity\blackbox\http-suite.mjs:78:3
+✖ rounds the cart discount half-even (1348.5 -> 1348) (1.5911ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1349 !== 1348
+  
+      at TestContext.<anonymous> (file:///D:/projects/clients/spd-technology/demo/2026-spd-shop-pricing/parity/blackbox/http-suite.mjs:80:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1349,
+    expected: 1348,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+[exit 1]

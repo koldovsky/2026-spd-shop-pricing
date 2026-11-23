@@ -1,0 +1,1 @@
+{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"node parity/diff/diff.mjs --a http://localhost:8082 --b http://localhost:8090 --n 1000"}}

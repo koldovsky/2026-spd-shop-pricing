@@ -1,0 +1,1 @@
+{"hook_event_name":"PreToolUse","tool_name":"PowerShell","tool_input":{"command":"Set-Content -Path parity\\corpus\\corpus.json -Value '{}'"}}

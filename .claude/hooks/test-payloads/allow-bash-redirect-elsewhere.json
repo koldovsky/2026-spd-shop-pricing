@@ -1,0 +1,1 @@
+{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"grep -rn 1348 parity > /tmp/hits.txt"}}

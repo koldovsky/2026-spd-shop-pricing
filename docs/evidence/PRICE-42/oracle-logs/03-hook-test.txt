@@ -1,0 +1,74 @@
+$ npm run hook:test
+
+> shop-pricing@1.0.0 hook:test
+> node .claude/hooks/test-protect-oracle.mjs
+
+ok   exit=0 want=0 allow-bash-bench-out-elsewhere.json      Bash: node bench/run.mjs --label go --cmd "go/pricing.exe" --out docs/evidence/PRICE-42/bench-go.json
+ok   exit=0 want=0 allow-bash-check.json                    Bash: npm run parity:check -- --base http://localhost:8090
+ok   exit=0 want=0 allow-bash-cp-out.json                   Bash: cp parity/corpus/corpus.json /tmp/corpus.json
+ok   exit=0 want=0 allow-bash-diff.json                     Bash: node parity/diff/diff.mjs --a http://localhost:8082 --b http://localhost:8090 --n 1000
+ok   exit=0 want=0 allow-bash-read-recorder-source.json     Bash: cat parity/record.mjs
+ok   exit=0 want=0 allow-bash-read.json                     Bash: cat parity/corpus/corpus.json | head -50
+ok   exit=0 want=0 allow-bash-redirect-elsewhere.json       Bash: grep -rn 1348 parity > /tmp/hits.txt
+ok   exit=0 want=0 allow-bash-tee-elsewhere.json            Bash: node parity/check.mjs --base http://localhost:8090 2>&1 | tee docs/evidence/PRICE-42/kotlin-parity.txt
+ok   exit=0 want=0 allow-edit-docs-bench.json               Write: docs/bench/notes.md
+ok   exit=0 want=0 allow-edit-nested-parity-folder.json     Write: go/internal/parity/parity.go
+ok   exit=0 want=0 allow-edit-outside-repo.json             Edit: D:\elsewhere\parity\x.md
+ok   exit=0 want=0 allow-edit-similar-prefix.json           Write: src/parity-utils.ts
+ok   exit=0 want=0 allow-edit-src.json                      Edit: src/pricing.ts
+ok   exit=0 want=0 allow-powershell-get-content.json        PowerShell: Get-Content parity\corpus\corpus.json | Select-Object -First 20
+ok   exit=0 want=0 allow-read-tool.json                     Read: parity/corpus/corpus.json
+ok   exit=0 want=0 allow-write-evidence.json                Write: D:\projects\clients\spd-technology\demo\2026-spd-shop-pricing\docs\evidence\PRICE-42\kotlin.md
+ok   exit=2 want=2 block-bash-append-abs.json               Bash: echo x >> "D:/projects/clients/spd-technology/demo/2026-spd-shop-pricing/bench/results/ts-baseline.json"
+       stderr: Blocked by the PRICE-42 oracle lock: shell redirection into a protected folder
+ok   exit=2 want=2 block-bash-cd-then-rm.json               Bash: cd parity && rm corpus/corpus.json
+       stderr: Blocked by the PRICE-42 oracle lock: "rm" on a protected folder
+ok   exit=2 want=2 block-bash-cp-into.json                  Bash: cp /tmp/corpus.json parity/corpus/corpus.json
+       stderr: Blocked by the PRICE-42 oracle lock: "cp" into a protected folder
+ok   exit=2 want=2 block-bash-git-checkout.json             Bash: git checkout -- parity/
+       stderr: Blocked by the PRICE-42 oracle lock: "git checkout" on a protected folder
+ok   exit=2 want=2 block-bash-mv.json                       Bash: mv contracts/openapi.yaml /tmp/openapi.yaml
+       stderr: Blocked by the PRICE-42 oracle lock: "mv" on a protected folder
+ok   exit=2 want=2 block-bash-node-inline.json              Bash: node -e "require('fs').writeFileSync('parity/corpus/corpus.json','{}')"
+       stderr: Blocked by the PRICE-42 oracle lock: inline node code writes to a protected folder
+ok   exit=2 want=2 block-bash-out-flag.json                 Bash: node bench/run.mjs --label go --base http://localhost:8090 --out bench/results/ts-baseline.json
+       stderr: Blocked by the PRICE-42 oracle lock: an output flag points into a protected folder
+ok   exit=2 want=2 block-bash-recorder-node.json            Bash: node parity/record.mjs --base http://localhost:8090
+       stderr: Blocked by the PRICE-42 oracle lock: the corpus recorder rewrites parity/corpus/corpus.json (record only from the TS reference, by a human)
+ok   exit=2 want=2 block-bash-recorder-npm.json             Bash: npm run parity:record -- --base http://localhost:8090
+       stderr: Blocked by the PRICE-42 oracle lock: the corpus recorder rewrites parity/corpus/corpus.json (record only from the TS reference, by a human)
+ok   exit=2 want=2 block-bash-redirect.json                 Bash: echo '{}' > parity/corpus/corpus.json
+       stderr: Blocked by the PRICE-42 oracle lock: shell redirection into a protected folder
+ok   exit=2 want=2 block-bash-rm.json                       Bash: rm -rf parity
+       stderr: Blocked by the PRICE-42 oracle lock: "rm" on a protected folder
+ok   exit=2 want=2 block-bash-sed-inplace.json              Bash: sed -i 's/1348/1349/' parity/corpus/corpus.json
+       stderr: Blocked by the PRICE-42 oracle lock: in-place "sed" on a protected folder
+ok   exit=2 want=2 block-bash-tee.json                      Bash: cat /tmp/x.json | tee bench/results/ts-baseline.json
+       stderr: Blocked by the PRICE-42 oracle lock: "tee" on a protected folder
+ok   exit=2 want=2 block-edit-abs-forward-mixedcase.json    Write: D:/projects/clients/spd-technology/demo/2026-spd-shop-pricing/Contracts/openapi.yaml
+       stderr: Blocked by the PRICE-42 oracle lock: Write on D:/projects/clients/spd-technology/demo/2026-spd-shop-pricing/Contracts/openapi.yaml is inside contracts/
+ok   exit=2 want=2 block-edit-abs-uppercase.json            Edit: D:\PROJECTS\CLIENTS\SPD-TECHNOLOGY\DEMO\2026-SPD-SHOP-PRICING\PARITY\CHECK.MJS
+       stderr: Blocked by the PRICE-42 oracle lock: Edit on D:\PROJECTS\CLIENTS\SPD-TECHNOLOGY\DEMO\2026-SPD-SHOP-PRICING\PARITY\CHECK.MJS is inside parity/
+ok   exit=2 want=2 block-edit-abs-windows.json              Edit: D:\projects\clients\spd-technology\demo\2026-spd-shop-pricing\parity\check.mjs
+       stderr: Blocked by the PRICE-42 oracle lock: Edit on D:\projects\clients\spd-technology\demo\2026-spd-shop-pricing\parity\check.mjs is inside parity/
+ok   exit=2 want=2 block-edit-dotdot.json                   Edit: src/../contracts/openapi.yaml
+       stderr: Blocked by the PRICE-42 oracle lock: Edit on src/../contracts/openapi.yaml is inside contracts/
+ok   exit=2 want=2 block-edit-gitbash-path.json             Edit: /d/projects/clients/spd-technology/demo/2026-spd-shop-pricing/bench/results/ts-baseline.json
+       stderr: Blocked by the PRICE-42 oracle lock: Edit on /d/projects/clients/spd-technology/demo/2026-spd-shop-pricing/bench/results/ts-baseline.json is inside bench/
+ok   exit=2 want=2 block-edit-relative.json                 Edit: parity/corpus/corpus.json
+       stderr: Blocked by the PRICE-42 oracle lock: Edit on parity/corpus/corpus.json is inside parity/
+ok   exit=2 want=2 block-multiedit-bench.json               MultiEdit: bench/run.mjs
+       stderr: Blocked by the PRICE-42 oracle lock: MultiEdit on bench/run.mjs is inside bench/
+ok   exit=2 want=2 block-notebookedit.json                  NotebookEdit: parity/notes.ipynb
+       stderr: Blocked by the PRICE-42 oracle lock: NotebookEdit on parity/notes.ipynb is inside parity/
+ok   exit=2 want=2 block-powershell-abs-copy.json           PowerShell: Copy-Item C:\tmp\x.json -Destination D:\projects\clients\spd-technology\demo\2026-spd-shop-pricing\Parity\corpus\corpus.json
+       stderr: Blocked by the PRICE-42 oracle lock: "copy-item" into a protected folder
+ok   exit=2 want=2 block-powershell-remove-item.json        PowerShell: Remove-Item -Recurse -Force contracts
+       stderr: Blocked by the PRICE-42 oracle lock: "remove-item" on a protected folder
+ok   exit=2 want=2 block-powershell-set-content.json        PowerShell: Set-Content -Path parity\corpus\corpus.json -Value '{}'
+       stderr: Blocked by the PRICE-42 oracle lock: "set-content" on a protected folder
+ok   exit=2 want=2 block-write-new-file.json                Write: contracts/extra.yaml
+       stderr: Blocked by the PRICE-42 oracle lock: Write on contracts/extra.yaml is inside contracts/
+
+41/41 payloads behaved as expected
+[exit 0]

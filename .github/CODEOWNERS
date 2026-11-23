@@ -1,0 +1,8 @@
+# PRICE-42 oracle: the contract, golden corpus, differential/black-box tests and the benchmark judge every
+# migration. Changes need a review from the pricing owner, in a PR of their own.
+/contracts/                      @koldovsky
+/parity/                         @koldovsky
+/bench/                          @koldovsky
+/.claude/hooks/                  @koldovsky
+/.claude/settings.json           @koldovsky
+/docs/specs/PRICE-42.md          @koldovsky
