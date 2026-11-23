@@ -10,7 +10,8 @@
     "dev": "tsx watch src/server.ts",
     "start": "tsx src/server.ts",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "parity:record": "node parity/record.mjs"
   },
   "dependencies": {
     "decimal.js": "10.6.0",
