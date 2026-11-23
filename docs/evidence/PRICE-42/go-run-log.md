@@ -304,3 +304,5 @@ remains in git history at dd7ab1b (main was not rewritten).
 - In iteration 4 the agent wrote a helper script to the user's temp folder (running it was denied). The hook and the
   allow-list are guard rails, not a sandbox.
 - The parity gate on slices 1–3 ran tag subsets; the full gate ran from #15 (corpus) and #17 (corpus + contract + black-box).
+
+This log was added in its own evidence-only PR; it describes main at 69f021c plus commit 0e882b1 of that PR (only evidence files).
