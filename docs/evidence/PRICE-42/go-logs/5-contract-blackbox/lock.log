@@ -1,0 +1,4 @@
+$ git -C <clone> diff --stat 128c922 -- parity contracts bench .claude
+[end diff]
+$ git -C <clone> status --porcelain -- parity contracts bench .claude
+[end status]
