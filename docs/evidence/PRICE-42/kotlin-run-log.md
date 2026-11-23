@@ -1,6 +1,6 @@
 # PRICE-42 Kotlin stream — run log
 
-Orchestrator: Claude Code (claude-opus-5-5) under the 23.11 permission. Agent under test: `claude -p` (claude-opus-5-5), cwd = the Kotlin clone, so the repo's `.claude/settings.json` hook and AGENTS.md load. Raw results: `docs/evidence/PRICE-42/runs/kotlin/NN-<slice>.json` (unmodified; scanned for the user's email and home path: none found, nothing redacted). Prompts verbatim: `runs/kotlin/prompts/`.
+Orchestrator: Claude Code (claude-opus-5-5) under the 23.11 permission. Agent under test: `claude -p` (claude-opus-5-5), cwd = the Kotlin clone, so the repo's `.claude/settings.json` hook and AGENTS.md load. Raw results: `docs/evidence/PRICE-42/runs/kotlin/NN-<slice>.json` (unmodified except: the committed copies are scanned for the user's email and home path, and any occurrence is replaced with `<redacted>` (list in `runs/kotlin/REDACTED.txt`; the agent wrote a probe script under the user's temp folder in iteration 04)). Prompts verbatim: `runs/kotlin/prompts/`.
 
 ## Fixed before the start
 
@@ -89,6 +89,35 @@ Prompt (verbatim, `runs/kotlin/prompts/03-skeleton.txt`):
 PRICE-42, Kotlin stream, slice 1 of 6: skeleton (continued). Branch: PRICE-42-kotlin-skeleton.
 
 The previous run stopped on permissions. The working tree holds its uncommitted slice 1 files. kotlin/gradle/wrapper/gradle-wrapper.properties is now in place (copied by the orchestrator from shop-orders), and git status/diff/log (also with -C) are now allowed. Finish slice 1 of the accepted plan docs/plans/PRICE-42-kotlin.md: build, run on 8083, run the oracle tools, commit (including the plan file).
+
+Rules (all slices):
+- Read AGENTS.md, docs/specs/PRICE-42.md, parity/README.md and the accepted plan docs/plans/PRICE-42-kotlin.md first.
+- You are already on the slice branch, created from origin/main. Do not create, switch, rebase or push branches; the orchestrator pushes and opens the PR.
+- All code in kotlin/. Nothing else at the repo root except .github/workflows/parity-kotlin.yml. Never edit parity/, contracts/, bench/ or .claude/. Do not write files under docs/evidence/ (the orchestrator writes evidence). Spec non-goals apply: no new endpoints, fields, messages or status codes.
+- Java 21, Gradle wrapper in kotlin/, BigDecimal money, PORT env var (default 8082).
+- Keep this slice under 400 changed lines as the diff-size gate counts them (added + deleted vs origin/main; gradlew, gradlew.bat, **/gradle/wrapper/**, lockfiles and docs/evidence/** excluded). Check with git diff --numstat origin/main before you finish.
+- The TS reference runs at http://localhost:8093 (do not start or stop it). Run your candidate only on PORT=8083, never on 8082, 8084 or 8094, and stop the candidate process you started before you finish. Do not run the benchmark.
+- Oracle commands (repo root): node parity/check.mjs --base http://localhost:8083 ; node parity/contract.mjs --base http://localhost:8083 ; node parity/blackbox/run.mjs --base http://localhost:8083 ; node parity/diff/diff.mjs --a http://localhost:8093 --b http://localhost:8083 --seed 42 --n 1000
+- Commit your work (one or a few commits). Every commit message ends with exactly these trailer lines as its last paragraph:
+  Refs: PRICE-42
+  Assisted-by: Claude Code (claude-opus-5-5)
+- Finish with a clean working tree and a short report: what you built, changed-line count, build result, oracle counts.
+```
+
+### 04-pricing-core — slice 2 pricing-core
+
+- Start 2026-11-23T20:18:36+02:00 · end 2026-11-23T20:20:20+02:00 · wall-clock 104 s
+- `num_turns` 18 · `total_cost_usd` 0.787889 · `duration_ms` 100503 · `is_error` false (`success`) · permission denials 5
+- Result: committed `ace4e10`: `Pricing.kt` (rules in BigDecimal, ties resolved as ADR-007 in AGENTS.md/spec say, cart threshold division at 20 significant digits like decimal.js) and 16 unit tests incl. the three spec traps; 209 changed lines. Its curl probes of the TS reference were denied (multi-line shell function), so expected values were computed by hand. 5 denials. Rounding: correct on the first attempt, so no natural red is expected (see seeded branch later).
+- Oracle after it (orchestrator, oracle checkout): check 6/130 gating, contract 1/125, black-box 1/16, diff seed 42 1000/1000 (unchanged: not wired to HTTP yet); unit tests 19/19 — `kotlin-pricing-core.md`
+- Interventions: none
+
+Prompt (verbatim, `runs/kotlin/prompts/04-pricing-core.txt`):
+
+```text
+PRICE-42, Kotlin stream, slice 2 of 6: pricing-core. Branch: PRICE-42-kotlin-pricing-core.
+
+Implement slice 2 of the accepted plan docs/plans/PRICE-42-kotlin.md (slice 1 is merged on main).
 
 Rules (all slices):
 - Read AGENTS.md, docs/specs/PRICE-42.md, parity/README.md and the accepted plan docs/plans/PRICE-42-kotlin.md first.
