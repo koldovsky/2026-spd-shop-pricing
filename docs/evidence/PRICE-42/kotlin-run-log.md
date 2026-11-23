@@ -162,3 +162,32 @@ Rules (all slices):
 - Finish with a clean working tree and a short report: what you built, changed-line count, build result, oracle counts.
 ```
 
+### 06-prices — slice 4 prices
+
+- Start 2026-11-23T20:28:48+02:00 · end 2026-11-23T20:31:21+02:00 · wall-clock 153 s
+- `num_turns` 38 · `total_cost_usd` 1.3132385999999998 · `duration_ms` 150921 · `is_error` false (`success`) · permission denials 10
+- Result: committed `17eb6f7`: `Http.kt` with `GET /prices/{sku}` (Node querystring semantics for `currency`, strict path decoding with 500 on broken escapes like TS, 404 before 422), case-insensitive routes, HEAD; 8 tests; 164 changed lines. Probed edge cases against the TS reference with curl first. 10 denials (compound/piped commands); it found allowed forms.
+- Oracle after it (orchestrator, oracle checkout): check 39/130 gating (all `/prices` cases), contract 34/125, black-box 5/16, diff seed 42: valid-price 0/83 and bad-price-query 0/70 differ, all `/quote` kinds differ; unit tests 35/35 — `kotlin-prices.md`
+- Interventions: none
+
+Prompt (verbatim, `runs/kotlin/prompts/06-prices.txt`):
+
+```text
+PRICE-42, Kotlin stream, slice 4 of 6: prices. Branch: PRICE-42-kotlin-prices.
+
+Implement slice 4 of the accepted plan docs/plans/PRICE-42-kotlin.md (slices 1 to 3 are merged on main).
+
+Rules (all slices):
+- Read AGENTS.md, docs/specs/PRICE-42.md, parity/README.md and the accepted plan docs/plans/PRICE-42-kotlin.md first.
+- You are already on the slice branch, created from origin/main. Do not create, switch, rebase or push branches; the orchestrator pushes and opens the PR.
+- All code in kotlin/. Nothing else at the repo root except .github/workflows/parity-kotlin.yml. Never edit parity/, contracts/, bench/ or .claude/. Do not write files under docs/evidence/ (the orchestrator writes evidence). Spec non-goals apply: no new endpoints, fields, messages or status codes.
+- Java 21, Gradle wrapper in kotlin/, BigDecimal money, PORT env var (default 8082).
+- Keep this slice under 400 changed lines as the diff-size gate counts them (added + deleted vs origin/main; gradlew, gradlew.bat, **/gradle/wrapper/**, lockfiles and docs/evidence/** excluded). Check with git diff --numstat origin/main before you finish.
+- The TS reference runs at http://localhost:8093 (do not start or stop it). Run your candidate only on PORT=8083, never on 8082, 8084 or 8094, and stop the candidate process you started before you finish. Do not run the benchmark.
+- Oracle commands (repo root): node parity/check.mjs --base http://localhost:8083 ; node parity/contract.mjs --base http://localhost:8083 ; node parity/blackbox/run.mjs --base http://localhost:8083 ; node parity/diff/diff.mjs --a http://localhost:8093 --b http://localhost:8083 --seed 42 --n 1000
+- Commit your work (one or a few commits). Every commit message ends with exactly these trailer lines as its last paragraph:
+  Refs: PRICE-42
+  Assisted-by: Claude Code (claude-opus-5-5)
+- Finish with a clean working tree and a short report: what you built, changed-line count, build result, oracle counts.
+```
+
