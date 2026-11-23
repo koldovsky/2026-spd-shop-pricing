@@ -1,0 +1,16 @@
+PRICE-42: reimplement this pricing service in Go. This first step is a PLAN ONLY, no code.
+
+Read AGENTS.md, docs/specs/PRICE-42.md, parity/README.md, contracts/openapi.yaml and src/ first.
+
+Write a slice list of 4 to 6 pull requests for the Go reimplementation and save it to docs/plans/PRICE-42-go.md. Constraints the plan must respect:
+- Code only in go/ at the repo root. Go 1.27 (on PATH as `go`), standard library preferred. The service reads its port from PORT (default 8082) and needs no other configuration.
+- Each PR is under 400 changed lines as counted by the shop-harness diff-size gate (added + deleted lines; docs/evidence/** and go.sum do not count; the plan file itself counts toward the slice it lands in).
+- Exactly one CI workflow file at the repo root, .github/workflows/parity-go.yml, added in the first slice: on ubuntu it builds the Go candidate, starts it, and runs node parity/check.mjs, node parity/contract.mjs and node parity/blackbox/run.mjs against it. That workflow is the parity gate. Nothing else may change at the repo root (no README, AGENTS.md or .gitattributes changes).
+- The parity gate of every PR must be green at merge. For each slice state which oracle commands the workflow runs at that slice's head (check.mjs accepts --tag <tag>; contract.mjs and blackbox/run.mjs have no filter), and the result you expect. By the last slice the workflow runs the full check.mjs, contract.mjs and blackbox/run.mjs with no filter.
+- The oracle (parity/, contracts/, bench/, .claude/) is never edited.
+For each slice give: a short slug, scope, files, estimated changed lines, and how it is verified with the oracle commands.
+
+Commit only docs/plans/PRICE-42-go.md, with a message whose last paragraph is exactly these two trailer lines:
+Refs: PRICE-42
+Assisted-by: Claude Code (claude-opus-5-5)
+Do not push, do not create or switch branches. Write everything in English.
