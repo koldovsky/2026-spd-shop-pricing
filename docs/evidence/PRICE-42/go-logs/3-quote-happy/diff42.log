@@ -1,0 +1,38 @@
+$ node parity/diff/diff.mjs --a http://localhost:8094 --b http://localhost:8084 --seed 42 --n 1000
+parity:diff A(reference)=http://localhost:8094 B(candidate)=http://localhost:8084 seed=42 n=1000
+
+MISMATCH #20 (bad-quantity) A=422 B=400
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-5","quantity":""}]}
+  - status: expected 422, got 400
+  - $.error: expected "quantity for SKU-5 must be 1..100", got "malformed JSON"
+
+MISMATCH #21 (bad-quantity) A=422 B=400
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1},{"sku":"SKU-2","quantity":-0.5}]}
+  - status: expected 422, got 400
+  - $.error: expected "quantity for SKU-2 must be 1..100", got "malformed JSON"
+
+MISMATCH #23 (bad-quantity) A=422 B=400
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-5","quantity":57},{"sku":"SKU-5","quantity":10},{"sku":"SKU-4","quantity":{}},{"sku":"SKU-3","quantity":97},{"sku":"SKU-5…
+  - status: expected 422, got 400
+  - $.error: expected "quantity for SKU-4 must be 1..100", got "malformed JSON"
+
+MISMATCH #33 (bad-quantity) A=422 B=400
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-3","quantity":46},{"sku":"SKU-3","quantity":false},{"sku":"SKU-1","quantity":19}]}
+  - status: expected 422, got 400
+  - $.error: expected "quantity for SKU-3 must be 1..100", got "malformed JSON"
+
+MISMATCH #36 (content-type) A=400 B=200
+  request: POST /quote {"currency":"EUR","lines":[{"sku":"SKU-2","quantity":6}]}
+  - status: expected 400, got 200
+  - $.error: missing (expected "body must be { currency, lines: [{ sku, quantity }] }")
+  - $.currency: unexpected key (got "EUR")
+  - $.lines: unexpected key (got [{"sku":"SKU-2","quantity":6,"unitCents":12950,"discountCents":0,"lineCents":77700}])
+  - $.subtotalCents: unexpected key (got 77700)
+  - $.cartDiscountCents: unexpected key (got 2331)
+  - $.taxCents: unexpected key (got 15074)
+  - $.totalCents: unexpected key (got 90443)
+
+reference statuses: 200=527 400=145 404=128 422=200
+by kind (mismatches/sent): unknown-sku 0/91, valid-quote 0/419, valid-price 0/83, malformed-json 3/65, bad-currency 0/74, bad-quantity 98/98, bad-shape 25/78, content-type 13/22, bad-price-query 0/70
+RESULT: FAIL (139/1000 requests differ; showing first 5)
+[exit 1]

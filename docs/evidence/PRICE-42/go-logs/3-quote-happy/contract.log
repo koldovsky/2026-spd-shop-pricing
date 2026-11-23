@@ -1,0 +1,34 @@
+$ node parity/contract.mjs --base http://localhost:8084
+contract target=http://localhost:8084 spec=contracts/openapi.yaml (shop-pricing 1.0.0)
+
+VIOLATION quantity-zero
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":0}]}
+  - $.lines[0].quantity: 0 < minimum 1
+
+VIOLATION quantity-negative
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":-1}]}
+  - $.lines[0].quantity: -1 < minimum 1
+  - $.lines[0].lineCents: -8990 < minimum 0
+  - $.subtotalCents: -8990 < minimum 0
+  - $.taxCents: -1798 < minimum 0
+  - $.totalCents: -10788 < minimum 0
+
+VIOLATION quantity-101
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":101}]}
+  - $.lines[0].quantity: 101 > maximum 100
+
+VIOLATION quantity-null
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":null}]}
+  - $.lines[0].quantity: 0 < minimum 1
+
+VIOLATION quantity-huge
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":9007199254740992}]}
+  - $.lines[0].quantity: 9007199254740992 > maximum 100
+
+VIOLATION quantity-missing
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1"}]}
+  - $.lines[0].quantity: 0 < minimum 1
+
+contract: 119/125 gating corpus requests conform (status-only cases excluded)
+RESULT: FAIL (6 violations)
+[exit 1]
