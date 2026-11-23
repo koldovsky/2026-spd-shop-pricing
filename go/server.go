@@ -18,6 +18,7 @@ func NewServer() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /catalog", handleCatalog)
 	mux.HandleFunc("GET /prices/{sku}", handlePrice)
+	mux.HandleFunc("POST /quote", handleQuote)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if _, pattern := mux.Handler(r); pattern == "" {
 			notFound(w, r)

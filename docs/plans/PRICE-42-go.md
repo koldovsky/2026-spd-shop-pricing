@@ -21,7 +21,9 @@ Reference implementation: `src/` (TypeScript, Express 5, `decimal.js`).
 
 ## The parity gate (`.github/workflows/parity-go.yml`)
 
-On `pull_request` and `push` to `main`, `ubuntu-latest`:
+On `pull_request` and `push` to `main`, `ubuntu-latest`, filtered by `paths` (since slice 3, because
+`parity-kotlin.yml` shares the repo): `go/**`, `.github/workflows/parity-go.yml`, `parity/**`, `contracts/**`,
+`package-lock.json`.
 
 1. `actions/checkout`, `actions/setup-go` (`go-version: '1.27'`), `actions/setup-node` (Node version as used by the
    TS service), `npm ci` (the oracle tools import nothing beyond Node built-ins and repo files; `npm ci` is kept
