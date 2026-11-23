@@ -40,3 +40,5 @@ jobs:
         run: node parity/check.mjs --base http://localhost:8090 --tag catalog
       - name: oracle check --tag routing
         run: node parity/check.mjs --base http://localhost:8090 --tag routing
+      - name: oracle check --tag prices
+        run: node parity/check.mjs --base http://localhost:8090 --tag prices

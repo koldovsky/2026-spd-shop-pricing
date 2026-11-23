@@ -1,0 +1,10 @@
+$ node parity/check.mjs --base http://localhost:8084 --tag routing
+parity:check target=http://localhost:8084
+corpus D:\demo-s2\oracle-go\parity\corpus\corpus.json sha256=0211ef856e503d89… recorded from http://localhost:8082 at 25f3e2b940ad
+
+quirk differs (not gating) quirk-trailing-slash: status: expected 200, got 404; content-type: expected "application/json", got "text/html"; body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /catalog/</pre>\n</body>\n</html>\n"
+
+gating: 5/5 passed
+quirks (not gating): 0/1 same as reference
+RESULT: PASS
+[exit 0]
