@@ -1,9 +1,9 @@
-# PRICE-42 Kotlin — evidence: slice 5, quote
+# PRICE-42 Kotlin — evidence: slice 5, quote (after the workflow fix)
 
-- Verified revision: `1566a34cff4238843db6937d9d21fab9d80c59dc` (branch `PRICE-42-kotlin-quote`, working tree changes outside docs/evidence: 0)
+- Verified revision: `48ec5f45290ff4e0af01cb3e02c9b16a56e1626d` (branch `PRICE-42-kotlin-quote`, working tree changes outside docs/evidence: 0)
 - Oracle: read-only checkout `D:\demo-s2\oracle-kotlin` at `128c922b8c1252f3bf223113d49d93a799e4b886`, corpus sha256 `0211ef856e503d898ae2f689fc9ef827f4ba128bd647f9d0ab59eac3ca4ba37a`
 - TS reference: `node dist/server.js` from the oracle checkout, PORT=8093. Candidate: `java -jar kotlin/build/libs/pricing.jar`, PORT=8083.
-- Run by the orchestrator (not the agent) on 2026-11-23T20:36:18+02:00, Windows 11, openjdk version "21.0.12.1" 2026-08-18 LTS, node v24.18.0.
+- Run by the orchestrator (not the agent) on 2026-11-23T20:39:53+02:00, Windows 11, openjdk version "21.0.12.1" 2026-08-18 LTS, node v24.18.0.
 - Oracle files unchanged in this tree: `git diff 128c922 -- parity contracts bench .claude` -> 0 lines
 
 ## Build
@@ -65,7 +65,7 @@ $ (oracle-kotlin @ 128c922) node parity/blackbox/run.mjs --base http://localhost
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 102.3167
+ℹ duration_ms 107.7784
 exit code: 0
 ```
 ### Differential, seed 42
