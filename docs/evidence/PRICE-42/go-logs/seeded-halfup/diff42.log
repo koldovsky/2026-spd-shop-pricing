@@ -1,0 +1,28 @@
+$ node parity/diff/diff.mjs --a http://localhost:8094 --b http://localhost:8084 --seed 42 --n 1000
+parity:diff A(reference)=http://localhost:8094 B(candidate)=http://localhost:8084 seed=42 n=1000
+
+MISMATCH #3 (valid-quote) A=200 B=200
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-3","quantity":11},{"sku":"SKU-2","quantity":99},{"sku":"SKU-5","quantity":21},{"sku":"SKU-2","quantity":1}]}
+  - $.lines[1].discountCents: expected 64102, got 64103
+
+MISMATCH #9 (valid-quote) A=200 B=200
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-3","quantity":17},{"sku":"SKU-1","quantity":30},{"sku":"SKU-2","quantity":42},{"sku":"SKU-4","quantity":9},{"sku":"SKU-5"…
+  - $.lines[4].discountCents: expected 2062, got 2063
+
+MISMATCH #10 (valid-quote) A=200 B=200
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-2","quantity":23},{"sku":"SKU-1","quantity":32}]}
+  - $.lines[0].discountCents: expected 14892, got 14893
+
+MISMATCH #47 (valid-quote) A=200 B=200
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-2","quantity":11},{"sku":"SKU-3","quantity":9},{"sku":"SKU-1","quantity":100},{"sku":"SKU-5","quantity":47}]}
+  - $.lines[0].discountCents: expected 7122, got 7123
+
+MISMATCH #83 (valid-quote) A=200 B=200
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":83},{"sku":"SKU-4","quantity":9},{"sku":"SKU-3","quantity":2},{"sku":"SKU-5","quantity":10},{"sku":"SKU-3",…
+  - $.lines[0].discountCents: expected 37308, got 37309
+  - $.lines[3].discountCents: expected 2062, got 2063
+
+reference statuses: 200=527 400=145 404=128 422=200
+by kind (mismatches/sent): unknown-sku 0/91, valid-quote 76/419, valid-price 0/83, malformed-json 0/65, bad-currency 0/74, bad-quantity 0/98, bad-shape 0/78, content-type 1/22, bad-price-query 0/70
+RESULT: FAIL (77/1000 requests differ; showing first 5)
+[exit 1]

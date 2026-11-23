@@ -1,0 +1,29 @@
+# oracle run seeded at 58f11ebd1d3c9b7a3a297484535c6a4f4e0481c3 (2026-11-23T20:38:20+0200)
+$ git -C <clone> status --porcelain
+[end status]
+$ go version
+go version go1.27.4 windows/amd64
+$ go -C go vet ./...
+[exit 0]
+$ go -C go test ./...
+--- FAIL: TestCentsHalfEven (0.00s)
+    money_test.go:13: cents(-2.5) = -3, want -2
+    money_test.go:13: cents(0.5) = 1, want 0
+    money_test.go:13: cents(2.5) = 3, want 2
+    money_test.go:13: cents(-0.5) = -1, want 0
+--- FAIL: TestQuote (0.00s)
+    --- FAIL: TestQuote/trap-cart-discount-tie-even (0.00s)
+        quote_test.go:48: got [8990 0 44950 44950 1349 8720 52321], want [8990 0 44950 44950 1348 8720 52322]
+    --- FAIL: TestQuote/trap-line-discount-tie-even (0.00s)
+        quote_test.go:48: got [8990 4945 93946 93946 2818 18226 109354], want [8990 4944 93946 93946 2818 18226 109354]
+    --- FAIL: TestQuote/trap-line-total-tie-even (0.00s)
+        quote_test.go:48: got [8990 5844 111027 111027 3331 21539 129235], want [8990 5844 111026 111026 3331 21539 129234]
+FAIL
+FAIL	pricing	0.546s
+FAIL
+[exit 1]
+$ go -C go build -o D:/demo-s2/bin-go/pricing-58f11eb.exe .
+[exit 0]
+10016256 bytes D:/demo-s2/bin-go/pricing-58f11eb.exe
+candidate started: D:/demo-s2/bin-go/pricing-58f11eb.exe PID=88248; port 8084 owner PID=88248
+stopped PID 88248

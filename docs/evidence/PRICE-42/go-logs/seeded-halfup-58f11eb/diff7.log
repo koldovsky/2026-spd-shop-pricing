@@ -1,0 +1,38 @@
+$ node parity/diff/diff.mjs --a http://localhost:8094 --b http://localhost:8084 --seed 7 --n 1000
+parity:diff A(reference)=http://localhost:8094 B(candidate)=http://localhost:8084 seed=7 n=1000
+
+MISMATCH #0 (valid-quote) A=200 B=200
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-4","quantity":41},{"sku":"SKU-3","quantity":10},{"sku":"SKU-4","quantity":2},{"sku":"SKU-4","quantity":20},{"sku":"SKU-2"…
+  - $.lines[5].lineCents: expected 307562, got 307563
+  - $.subtotalCents: expected 842050, got 842051
+  - $.totalCents: expected 980146, got 980147
+
+MISMATCH #17 (valid-quote) A=200 B=200
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-5","quantity":58},{"sku":"SKU-4","quantity":10},{"sku":"SKU-1","quantity":73},{"sku":"SKU-5","quantity":10},{"sku":"SKU-2…
+  - $.lines[0].discountCents: expected 11962, got 11963
+  - $.lines[1].discountCents: expected 1666, got 1667
+  - $.lines[2].lineCents: expected 623456, got 623457
+  - $.lines[3].discountCents: expected 2062, got 2063
+  - $.subtotalCents: expected 2177746, got 2177747
+  - $.totalCents: expected 2534897, got 2534898
+
+MISMATCH #48 (valid-quote) A=200 B=200
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":35},{"sku":"SKU-3","quantity":1},{"sku":"SKU-1","quantity":27},{"sku":"SKU-2","quantity":58},{"sku":"SKU-2"…
+  - $.lines[0].discountCents: expected 15732, got 15733
+  - $.lines[2].discountCents: expected 12136, got 12137
+
+MISMATCH #76 (valid-quote) A=200 B=200
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-5","quantity":22},{"sku":"SKU-3","quantity":46},{"sku":"SKU-2","quantity":99}]}
+  - $.lines[0].lineCents: expected 86212, got 86213
+  - $.lines[2].discountCents: expected 64102, got 64103
+  - $.subtotalCents: expected 2277750, got 2277751
+  - $.cartDiscountCents: expected 68332, got 68333
+
+MISMATCH #82 (valid-quote) A=200 B=200
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":99}]}
+  - $.lines[0].discountCents: expected 44500, got 44501
+
+reference statuses: 200=521 400=140 404=106 422=233
+by kind (mismatches/sent): valid-quote 74/413, malformed-json 0/50, bad-shape 0/76, unknown-sku 0/73, bad-price-query 0/52, valid-price 0/92, bad-currency 0/82, bad-quantity 0/125, content-type 1/37
+RESULT: FAIL (75/1000 requests differ; showing first 5)
+[exit 1]

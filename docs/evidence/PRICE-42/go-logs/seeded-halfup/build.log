@@ -1,0 +1,15 @@
+# oracle run seeded2 at cd7267a9c0d3e93a5e4140859b91c43009dc5f9e (2026-11-23T20:41:05+0200)
+$ git -C <clone> status --porcelain
+[end status]
+$ go version
+go version go1.27.4 windows/amd64
+$ go -C go vet ./...
+[exit 0]
+$ go -C go test ./...
+ok  	pricing	(cached)
+[exit 0]
+$ go -C go build -o D:/demo-s2/bin-go/pricing-cd7267a.exe .
+[exit 0]
+10016256 bytes D:/demo-s2/bin-go/pricing-cd7267a.exe
+candidate started: D:/demo-s2/bin-go/pricing-cd7267a.exe PID=87988; port 8084 owner PID=87988
+stopped PID 87988

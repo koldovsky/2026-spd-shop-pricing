@@ -1,0 +1,53 @@
+$ node parity/blackbox/run.mjs --base http://localhost:8084
+blackbox target=http://localhost:8084
+▶ unit prices (vitest: unit prices)
+  ✔ returns the base price in EUR (17.7569ms)
+  ✔ converts at the fixed rate and rounds half-even (3333 x 1.0825 = 3607.9725 -> 3608) (0.7897ms)
+  ✔ defaults to EUR when no currency is given (0.8848ms)
+  ✔ returns 404 with an error body for an unknown SKU (0.5643ms)
+✔ unit prices (vitest: unit prices) (20.6636ms)
+▶ quote (vitest: quote)
+  ✔ prices a small cart with VAT and no cart discount (1.0037ms)
+  ✔ uses the larger line discount, not both (15% of 249000, not 20%) (0.5877ms)
+  ✔ adds the 3% cart discount from 200.00 EUR (259.00 -> 777) (0.5049ms)
+  ✔ rejects quantity 0 with 422 and a 1..100 message (0.5799ms)
+  ✔ rejects an unknown currency with 422 'unsupported' (0.5815ms)
+✔ quote (vitest: quote) (3.5304ms)
+▶ HTTP contract (consumers: shop-web, shop-orders)
+  ✔ GET /catalog lists sku and name only (0.9207ms)
+  ✔ POST /quote returns the full quote shape (shop-orders reads totalCents) (0.7167ms)
+  ✖ rounds the cart discount half-even (1348.5 -> 1348) (0.9747ms)
+  ✔ returns 400 'malformed JSON' for a broken body (1.378ms)
+  ✔ returns 400 for a body without lines (0.7945ms)
+  ✔ returns 422 for an empty cart (0.3935ms)
+  ✔ returns 404 for an unknown SKU in a quote (0.4847ms)
+✖ HTTP contract (consumers: shop-web, shop-orders) (5.9039ms)
+ℹ tests 16
+ℹ suites 3
+ℹ pass 15
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 105.3383
+
+✖ failing tests:
+
+test at parity\blackbox\http-suite.mjs:78:3
+✖ rounds the cart discount half-even (1348.5 -> 1348) (0.9747ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1349 !== 1348
+  
+      at TestContext.<anonymous> (file:///D:/demo-s2/oracle-go/parity/blackbox/http-suite.mjs:80:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1349,
+    expected: 1348,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+[exit 1]
