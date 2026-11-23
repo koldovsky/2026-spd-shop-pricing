@@ -1,0 +1,35 @@
+# PRICE-42: the Kotlin candidate must pass the locked oracle (parity/, contracts/). Expected red until slice 5.
+name: parity-kotlin
+on: pull_request
+permissions:
+  contents: read
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Build (unit tests + jar)
+        run: ./kotlin/gradlew -p kotlin build
+      - name: Start candidate on :8083
+        run: |
+          PORT=8083 java -jar kotlin/build/libs/pricing.jar > candidate.log 2>&1 &
+          for i in $(seq 1 60); do
+            curl -sf http://localhost:8083/catalog > /dev/null && exit 0
+            sleep 1
+          done
+          cat candidate.log
+          echo "candidate did not start within 60 s"
+          exit 1
+      - name: Recorded corpus
+        run: node parity/check.mjs --base http://localhost:8083
+      - name: Contract
+        run: node parity/contract.mjs --base http://localhost:8083
+      - name: Black-box suite
+        run: node parity/blackbox/run.mjs --base http://localhost:8083
