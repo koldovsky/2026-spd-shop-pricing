@@ -5,6 +5,7 @@
 //   forward-slash, Git Bash /d/..., any letter case, "..") against the project and blocks protected targets.
 // - Bash / PowerShell: blocks OBVIOUS writes only (redirection, rm/mv/cp/tee/sed -i/Set-Content/..., --out into the
 //   folders, inline node/python file writes, and any run of the corpus recorder). It is a guard rail, not a sandbox.
+// The lock also protects itself: .claude/settings.json and .claude/hooks/ are blocked the same way.
 // Exit 2 + stderr = blocked (Claude Code shows the reason to the agent). Exit 0 = allowed.
 // owner: @koldovsky · why: an agent must not be able to change the oracle that judges it (PRICE-42) · review-by: 2027-02-19
 import { appendFileSync, readFileSync } from "node:fs";
@@ -32,7 +33,9 @@ function protectedFolder(filePath) {
   if (!/^[a-z]:\//.test(p) && !p.startsWith("/")) p = canon(resolve(isAbsolute(input.cwd ?? "") ? input.cwd : projectDir, filePath));
   else p = canon(resolve(p));
   if (p !== project && !p.startsWith(project + "/")) return null; // outside this repo
-  const first = p.slice(project.length + 1).split("/")[0];
+  const rel = p.slice(project.length + 1);
+  if (/^\.claude\/(settings\.json$|hooks(\/|$))/.test(rel)) return ".claude"; // the lock protects itself
+  const first = rel.split("/")[0];
   return PROTECTED.includes(first) ? first : null;
 }
 
@@ -58,7 +61,7 @@ if (tool === "Bash" || tool === "PowerShell") {
   const msysProject = project.replace(/^([a-z]):/, "/$1");
   for (const p of [project, msysProject, `/mnt${msysProject}`]) cmd = cmd.split(p + "/").join("./");
 
-  const NAME = `(?:\\./)?(${PROTECTED.join("|")})`;
+  const NAME = `(?:\\./)?(${PROTECTED.join("|")}|\\.claude/settings\\.json|\\.claude/hooks)`;
   const REF = new RegExp(`(^|[\\s"'=(,<>])${NAME}(?:/|(?=[\\s"';|&)<>]|$))`);
   const refIn = (s) => REF.test(s);
   const cwdRel = cwd.startsWith(project + "/") ? cwd.slice(project.length + 1).split("/")[0] : null;
