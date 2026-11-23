@@ -1,0 +1,37 @@
+$ node parity/diff/diff.mjs --a http://localhost:8094 --b http://localhost:8084 --seed 7 --n 1000
+parity:diff A(reference)=http://localhost:8094 B(candidate)=http://localhost:8084 seed=7 n=1000
+
+MISMATCH #0 (valid-quote) A=200 B=404
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-4","quantity":41},{"sku":"SKU-3","quantity":10},{"sku":"SKU-4","quantity":2},{"sku":"SKU-4","quantity":20},{"sku":"SKU-2"…
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+MISMATCH #1 (malformed-json) A=400 B=404
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","q
+  - status: expected 400, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+MISMATCH #2 (valid-quote) A=200 B=404
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-4","quantity":97},{"sku":"SKU-4","quantity":83},{"sku":"SKU-1","quantity":9},{"sku":"SKU-3","quantity":1}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+MISMATCH #3 (bad-shape) A=422 B=404
+  request: POST /quote [application/json] {"currency":"EUR","lines":[]}
+  - status: expected 422, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+MISMATCH #4 (valid-quote) A=200 B=404
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":84}]}
+  - status: expected 200, got 404
+  - content-type: expected "application/json", got "text/html"
+  - body: expected JSON, got "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /quote</pre>\n</body>\n</html>\n"
+
+reference statuses: 200=521 400=140 404=106 422=233
+by kind (mismatches/sent): valid-quote 413/413, malformed-json 50/50, bad-shape 76/76, unknown-sku 73/73, bad-price-query 0/52, valid-price 0/92, bad-currency 82/82, bad-quantity 125/125, content-type 37/37
+RESULT: FAIL (856/1000 requests differ; showing first 5)
+[exit 1]

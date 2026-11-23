@@ -1,0 +1,86 @@
+$ node parity/contract.mjs --base http://localhost:8084
+contract target=http://localhost:8084 spec=contracts/openapi.yaml (shop-pricing 1.0.0)
+
+VIOLATION quote-SKU-1-EUR-x1
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-1-USD-x1
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-1","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-1-UAH-x1
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-1","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-2-EUR-x1
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-2","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-2-USD-x1
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-2","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-2-UAH-x1
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-2","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-3-EUR-x1
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-3","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-3-USD-x1
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-3","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-3-UAH-x1
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-3","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-4-EUR-x1
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-4","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-4-USD-x1
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-4","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-4-UAH-x1
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-4","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-5-EUR-x1
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-5","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-5-USD-x1
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-5","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-SKU-5-UAH-x1
+  request: POST /quote [application/json] {"currency":"UAH","lines":[{"sku":"SKU-5","quantity":1}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-bulk-below-EUR
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":9}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-bulk-at-EUR
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-1","quantity":10}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-max-quantity-EUR
+  request: POST /quote [application/json] {"currency":"EUR","lines":[{"sku":"SKU-2","quantity":100}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-bulk-below-USD
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-1","quantity":9}]}
+  - media type text/html not declared for 404
+
+VIOLATION quote-bulk-at-USD
+  request: POST /quote [application/json] {"currency":"USD","lines":[{"sku":"SKU-1","quantity":10}]}
+  - media type text/html not declared for 404
+
+contract: 34/125 gating corpus requests conform (status-only cases excluded)
+RESULT: FAIL (91 violations)
+[exit 1]
