@@ -191,3 +191,32 @@ Rules (all slices):
 - Finish with a clean working tree and a short report: what you built, changed-line count, build result, oracle counts.
 ```
 
+### 07-quote — slice 5 quote
+
+- Start 2026-11-23T20:33:29+02:00 · end 2026-11-23T20:36:10+02:00 · wall-clock 161 s
+- `num_turns` 43 · `total_cost_usd` 1.3347018000000004 · `duration_ms` 157239 · `is_error` false (`success`) · permission denials 13
+- Result: committed `1566a34`: `POST /quote` with express.json body semantics (content-type, 100 kB limit, malformed JSON, shape check, JS-like line destructuring and stringification), non-string SKU never matches; 10 tests; 173 changed lines. Reported all four local oracle tools green. 13 denials (its direct probes of the TS reference were blocked; it relied on the oracle cases). Rounding case `trap-cart-discount-tie-even` passed on the first run of the calculation over HTTP: no natural red.
+- Oracle after it (orchestrator, oracle checkout): check 130/130 gating (quirks 2/6 same), contract 125/125, black-box 16/16, diff seed 42 0/1000; unit tests 45/45 — `kotlin-quote.md`
+- Interventions: none
+
+Prompt (verbatim, `runs/kotlin/prompts/07-quote.txt`):
+
+```text
+PRICE-42, Kotlin stream, slice 5 of 6: quote. Branch: PRICE-42-kotlin-quote.
+
+Implement slice 5 of the accepted plan docs/plans/PRICE-42-kotlin.md (slices 1 to 4 are merged on main).
+
+Rules (all slices):
+- Read AGENTS.md, docs/specs/PRICE-42.md, parity/README.md and the accepted plan docs/plans/PRICE-42-kotlin.md first.
+- You are already on the slice branch, created from origin/main. Do not create, switch, rebase or push branches; the orchestrator pushes and opens the PR.
+- All code in kotlin/. Nothing else at the repo root except .github/workflows/parity-kotlin.yml. Never edit parity/, contracts/, bench/ or .claude/. Do not write files under docs/evidence/ (the orchestrator writes evidence). Spec non-goals apply: no new endpoints, fields, messages or status codes.
+- Java 21, Gradle wrapper in kotlin/, BigDecimal money, PORT env var (default 8082).
+- Keep this slice under 400 changed lines as the diff-size gate counts them (added + deleted vs origin/main; gradlew, gradlew.bat, **/gradle/wrapper/**, lockfiles and docs/evidence/** excluded). Check with git diff --numstat origin/main before you finish.
+- The TS reference runs at http://localhost:8093 (do not start or stop it). Run your candidate only on PORT=8083, never on 8082, 8084 or 8094, and stop the candidate process you started before you finish. Do not run the benchmark.
+- Oracle commands (repo root): node parity/check.mjs --base http://localhost:8083 ; node parity/contract.mjs --base http://localhost:8083 ; node parity/blackbox/run.mjs --base http://localhost:8083 ; node parity/diff/diff.mjs --a http://localhost:8093 --b http://localhost:8083 --seed 42 --n 1000
+- Commit your work (one or a few commits). Every commit message ends with exactly these trailer lines as its last paragraph:
+  Refs: PRICE-42
+  Assisted-by: Claude Code (claude-opus-5-5)
+- Finish with a clean working tree and a short report: what you built, changed-line count, build result, oracle counts.
+```
+

@@ -1,2 +1,3 @@
 04-pricing-core.json: 2 occurrence(s) of the user's home path or email replaced with <redacted>
 06-prices.json: 2 occurrence(s) of the user's home path or email replaced with <redacted>
+07-quote.json: 2 occurrence(s) of the user's home path or email replaced with <redacted>
