@@ -23,7 +23,7 @@ func cents(r *big.Rat) int64 {
 	q, m := new(big.Int).QuoRem(num, den, new(big.Int)) // truncated toward zero
 	twice := new(big.Int).Abs(m)
 	twice.Lsh(twice, 1)
-	if c := twice.Cmp(den); c > 0 || (c == 0 && q.Bit(0) == 1) {
+	if c := twice.Cmp(den); c >= 0 {
 		if num.Sign() < 0 {
 			q.Sub(q, big.NewInt(1))
 		} else {
