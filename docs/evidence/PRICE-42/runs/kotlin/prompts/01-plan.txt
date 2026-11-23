@@ -1,0 +1,19 @@
+PRICE-42, Kotlin stream, iteration 1: PLAN ONLY, no code.
+
+Task: shop-pricing (TypeScript, src/) is being reimplemented in Kotlin so that consumers cannot tell the difference. Read AGENTS.md, docs/specs/PRICE-42.md, parity/README.md, contracts/openapi.yaml and src/ first.
+
+Write docs/plans/PRICE-42-kotlin.md: a slice list of 4 to 6 pull requests that together deliver the Kotlin service. Do not write any code in this iteration, and do not commit (the plan is committed with the first slice).
+
+Fixed constraints the plan must respect:
+- All code in kotlin/ at the repo root. Nothing else at the repo root except one CI workflow file, .github/workflows/parity-kotlin.yml. Never edit parity/, contracts/, bench/ or .claude/ (they are the locked oracle).
+- Java 21, Gradle wrapper inside kotlin/ (no system Gradle is installed; Gradle 9.9.1 is already in the local Gradle cache, and the wrapper files gradlew, gradlew.bat and gradle/wrapper/* may be copied from D:\projects\clients\spd-technology\demo\2026-spd-shop-orders). A small HTTP stack: Ktor or plain com.sun.net.httpserver, your choice, recorded with the reason. BigDecimal for money. Port from PORT (default 8082), no other configuration. The spec's non-goals apply: no new endpoints, fields, messages or status codes.
+- Each slice is one PR on branch PRICE-42-kotlin-<slug>, under 400 changed lines as the shop-harness diff-size gate counts them (added + deleted; gradlew, gradlew.bat, **/gradle/wrapper/**, lockfiles and docs/evidence/** do not count; docs/plans/ does count). Give an estimate per slice.
+- Every commit message ends with these two trailer lines:
+  Refs: PRICE-42
+  Assisted-by: Claude Code (claude-opus-5-5)
+- Slice 1 includes the build, the runnable skeleton and the parity gate workflow .github/workflows/parity-kotlin.yml: on pull_request, on ubuntu-latest, set up Java 21 and Node 24, build the candidate with the wrapper, start the built artifact (not gradle run), wait for it, and run node parity/check.mjs, node parity/contract.mjs and node parity/blackbox/run.mjs against it. The gate stays strict from the first slice (no continue-on-error, no subset of checks); it is expected to be red until the endpoints exist.
+- The last slice ends with: parity/check.mjs all gating cases, parity/contract.mjs, parity/blackbox/run.mjs 16/16, and parity/diff/diff.mjs against the TS reference with 0 differences for seed 42 n 1000 and for another seed chosen by the reviewer; plus kotlin/README.md with the exact build and production start command (built jar, java -jar).
+- Local environment for later slices: the TS reference runs at http://localhost:8093 (already running, do not start or stop it). Run your candidate only on PORT=8083. Never use ports 8082, 8084 or 8094. Do not run the benchmark (bench/run.mjs).
+- Evidence files under docs/evidence/ are written by the orchestrator, not by you.
+
+For each slice give: slug, scope, files, estimated changed lines, how it is verified (commands), and which oracle checks are expected to pass after it. End with a short list of risks.
