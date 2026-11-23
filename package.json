@@ -13,7 +13,10 @@
     "typecheck": "tsc --noEmit",
     "parity:record": "node parity/record.mjs",
     "parity:check": "node parity/check.mjs",
-    "parity:contract": "node parity/contract.mjs"
+    "parity:contract": "node parity/contract.mjs",
+    "parity:diff": "node parity/diff/diff.mjs",
+    "parity:traps": "node parity/traps.mjs",
+    "blackbox": "node parity/blackbox/run.mjs"
   },
   "dependencies": {
     "decimal.js": "10.6.0",
