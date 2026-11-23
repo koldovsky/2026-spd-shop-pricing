@@ -1,6 +1,10 @@
 # PRICE-42: the Kotlin candidate must pass the locked oracle (parity/, contracts/). Expected red until slice 5.
 name: parity-kotlin
-on: pull_request
+on:
+  pull_request:
+    paths:
+      - 'kotlin/**'
+      - '.github/workflows/parity-kotlin.yml'
 permissions:
   contents: read
 jobs:
