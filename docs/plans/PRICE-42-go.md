@@ -1,6 +1,6 @@
 # PRICE-42 — Go reimplementation: slice plan
 
-Status: slices 1-3 merged, slice 4 implemented (no 4a/4b split needed). Spec: `docs/specs/PRICE-42.md`. Oracle: `parity/README.md`, `contracts/openapi.yaml`.
+Status: slices 1-4 merged, slice 5 implemented (no fixes needed; benchmark deferred to the presenter). Spec: `docs/specs/PRICE-42.md`. Oracle: `parity/README.md`, `contracts/openapi.yaml`.
 Reference implementation: `src/` (TypeScript, Express 5, `decimal.js`).
 
 ## Ground rules for every slice
@@ -135,14 +135,21 @@ http://localhost:8090 --seed 42 --n 1000` against the TS service; any failure is
 ### 5. `go-contract-blackbox`
 
 Scope: turn on the remaining gates, fix any contract or black-box finding (expected small: media types, error body
-shape on 404/500, unknown-route body). Record acceptance evidence: diff seed 42 n 1000 plus a reviewer-chosen seed,
-benchmark `node bench/run.mjs --label go --cmd "<go binary>" --out docs/evidence/PRICE-42/bench-go.json` back to
-back with `bench:ts` in the same session (median p95 not above TS).
+shape on 404/500, unknown-route body). `contract.mjs` imports the `yaml` package, so the workflow adds `npm ci`
+(with the npm cache) before the oracle steps. Add `go/README.md` (build, test, run; production start is the built
+binary with `PORT` set, not `go run`) and `go/.gitignore` for the local binary. Acceptance evidence (diff seed 42
+n 1000 plus a reviewer-chosen seed) is recorded by the orchestrator, not in this PR's code commits.
 
-Files: `.github/workflows/parity-go.yml` (+2 steps), `go/*.go` (fixes only, if any),
-`docs/evidence/PRICE-42/go-5-*.md`, `docs/evidence/PRICE-42/bench-go.json` (evidence, not counted).
+Out of scope: the benchmark (`node bench/run.mjs --label go ...` against `bench:ts`). The presenter runs it later;
+it is not run as part of this slice and `bench-go.json` is not produced here.
 
-Estimate: ~60 (workflow ~10, fixes ≤ 50).
+Outcome: no oracle finding locally (check 130/130, contract 125/125, blackbox 16/16, diff seed 42 0/1000), so no
+`go/*.go` changes.
+
+Files: `.github/workflows/parity-go.yml` (+2 oracle steps, `npm ci`), `go/README.md`, `go/.gitignore`,
+`go/*.go` (fixes only, if any; none needed), evidence by the orchestrator.
+
+Estimate: ~60 (workflow ~10, README ~40, fixes ≤ 50).
 
 Verify: gate runs `node parity/check.mjs --base http://localhost:8090`, `node parity/contract.mjs --base
 http://localhost:8090`, `node parity/blackbox/run.mjs --base http://localhost:8090`, all unfiltered; expected all
@@ -153,5 +160,6 @@ exit 0, 130/130 gating, contract ok, blackbox 16/16. This is the final state of 
 - If slice 4 exceeds 400 lines, split it into 4a (body decode + empty/currency/malformed JSON:
   `--tag malformed-json`, `--tag empty`, `--tag invalid-currency`, `--tag invalid-input`) and 4b (quantity and SKU
   rules, validation order, then unfiltered `check.mjs`); the series stays at 6 PRs.
+- Slice 5 adds `go/README.md` at the user's request (the root README stays untouched).
 - Diff and benchmark need the TS service running next to the candidate, so they are local evidence, not CI steps,
   per the workflow scope above.
