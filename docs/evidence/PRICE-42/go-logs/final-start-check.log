@@ -1,0 +1,5 @@
+spawned go/pricing.exe PID 52112 PORT=8084
+gating: 130/130 passed
+RESULT: PASS 
+[check exit 0]
+killed PID 52112
