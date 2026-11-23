@@ -1,0 +1,133 @@
+{
+  "label": "kotlin-xmx256m",
+  "startedAt": "2026-11-23T19:04:22.682Z",
+  "gitSha": "904a685f2ddba72f93e841063d8331904dec9016",
+  "machine": {
+    "os": "Windows_NT 10.0.26300",
+    "platform": "win32",
+    "arch": "x64",
+    "cpuModel": "Intel(R) Core(TM) Ultra 9 275HX",
+    "logicalCpus": 24,
+    "totalMemGB": 127.68,
+    "freeMemGBAtStart": 65.96,
+    "node": "v24.18.0",
+    "otherLoad": "not controlled (desktop machine; client and server share the CPU)"
+  },
+  "config": {
+    "cmd": "java -Xmx256m -jar kotlin/build/libs/pricing.jar",
+    "base": null,
+    "cwd": "D:\\demo-s2\\pricing-go",
+    "port": 8090,
+    "repeats": 3,
+    "warmupS": 5,
+    "durationS": 20,
+    "connections": 64,
+    "clientWorkers": 8,
+    "seed": 42,
+    "mix": {
+      "catalog": 0.2,
+      "prices": 0.3,
+      "quote": 0.5
+    },
+    "loadModel": "closed loop: each connection sends the next request as soon as the previous response ends; keep-alive",
+    "requestPool": "1000 seeded requests (mulberry32), quotes have 1-5 lines with quantity 1..100",
+    "coldStart": "spawn() to first HTTP 200 on GET /catalog, polled every 5 ms"
+  },
+  "runs": [
+    {
+      "repeat": 1,
+      "coldStartMs": 179.84,
+      "serverPid": 7304,
+      "serverProcess": "java",
+      "requests": 2096928,
+      "rps": 104844.35,
+      "non2xx": 0,
+      "errors": 0,
+      "latencyMs": {
+        "p50": 0.58,
+        "p95": 0.92,
+        "p99": 1.24,
+        "max": 4.34,
+        "mean": 0.61
+      },
+      "peakRssMB": 306.29,
+      "rssAfterLoadMB": 226.41,
+      "memorySource": "Get-Process PeakWorkingSet64/WorkingSet64"
+    },
+    {
+      "repeat": 2,
+      "coldStartMs": 182.19,
+      "serverPid": 79208,
+      "serverProcess": "java",
+      "requests": 2079007,
+      "rps": 103946.97,
+      "non2xx": 0,
+      "errors": 0,
+      "latencyMs": {
+        "p50": 0.59,
+        "p95": 0.94,
+        "p99": 1.23,
+        "max": 3.57,
+        "mean": 0.61
+      },
+      "peakRssMB": 299.75,
+      "rssAfterLoadMB": 227.73,
+      "memorySource": "Get-Process PeakWorkingSet64/WorkingSet64"
+    },
+    {
+      "repeat": 3,
+      "coldStartMs": 186.87,
+      "serverPid": 89364,
+      "serverProcess": "java",
+      "requests": 2071007,
+      "rps": 103542.53,
+      "non2xx": 0,
+      "errors": 0,
+      "latencyMs": {
+        "p50": 0.59,
+        "p95": 0.95,
+        "p99": 1.26,
+        "max": 3.65,
+        "mean": 0.61
+      },
+      "peakRssMB": 304.44,
+      "rssAfterLoadMB": 226.99,
+      "memorySource": "Get-Process PeakWorkingSet64/WorkingSet64"
+    }
+  ],
+  "summary": {
+    "note": "median / min / max over 3 repeats",
+    "rps": {
+      "median": 103946.97,
+      "min": 103542.53,
+      "max": 104844.35
+    },
+    "p50Ms": {
+      "median": 0.59,
+      "min": 0.58,
+      "max": 0.59
+    },
+    "p95Ms": {
+      "median": 0.94,
+      "min": 0.92,
+      "max": 0.95
+    },
+    "p99Ms": {
+      "median": 1.24,
+      "min": 1.23,
+      "max": 1.26
+    },
+    "peakRssMB": {
+      "median": 304.44,
+      "min": 299.75,
+      "max": 306.29
+    },
+    "coldStartMs": {
+      "median": 182.19,
+      "min": 179.84,
+      "max": 186.87
+    },
+    "totalNon2xx": 0,
+    "totalErrors": 0
+  }
+}
