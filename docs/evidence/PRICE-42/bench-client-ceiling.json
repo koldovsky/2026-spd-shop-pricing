@@ -1,0 +1,133 @@
+{
+  "label": "client-ceiling",
+  "startedAt": "2026-11-23T17:46:26.497Z",
+  "gitSha": "59ea5f2147168c8ba4d171653287d7d11d4b53e9",
+  "machine": {
+    "os": "Windows_NT 10.0.26300",
+    "platform": "win32",
+    "arch": "x64",
+    "cpuModel": "Intel(R) Core(TM) Ultra 9 275HX",
+    "logicalCpus": 24,
+    "totalMemGB": 127.68,
+    "freeMemGBAtStart": 66.54,
+    "node": "v24.18.0",
+    "otherLoad": "not controlled (desktop machine; client and server share the CPU)"
+  },
+  "config": {
+    "cmd": "node bench/null-server.mjs",
+    "base": null,
+    "cwd": "D:\\projects\\clients\\spd-technology\\demo\\2026-spd-shop-pricing",
+    "port": 8090,
+    "repeats": 3,
+    "warmupS": 5,
+    "durationS": 20,
+    "connections": 64,
+    "clientWorkers": 8,
+    "seed": 42,
+    "mix": {
+      "catalog": 0.2,
+      "prices": 0.3,
+      "quote": 0.5
+    },
+    "loadModel": "closed loop: each connection sends the next request as soon as the previous response ends; keep-alive",
+    "requestPool": "1000 seeded requests (mulberry32), quotes have 1-5 lines with quantity 1..100",
+    "coldStart": "spawn() to first HTTP 200 on GET /catalog, polled every 5 ms"
+  },
+  "runs": [
+    {
+      "repeat": 1,
+      "coldStartMs": 148.77,
+      "serverPid": 86332,
+      "serverProcess": "node",
+      "requests": 2697633,
+      "rps": 134872.57,
+      "non2xx": 0,
+      "errors": 0,
+      "latencyMs": {
+        "p50": 0.45,
+        "p95": 0.74,
+        "p99": 0.91,
+        "max": 3.57,
+        "mean": 0.47
+      },
+      "peakRssMB": 71.95,
+      "rssAfterLoadMB": 68.91,
+      "memorySource": "Get-Process PeakWorkingSet64/WorkingSet64"
+    },
+    {
+      "repeat": 2,
+      "coldStartMs": 146.73,
+      "serverPid": 68488,
+      "serverProcess": "node",
+      "requests": 2575706,
+      "rps": 128775.21,
+      "non2xx": 0,
+      "errors": 0,
+      "latencyMs": {
+        "p50": 0.46,
+        "p95": 0.83,
+        "p99": 1.16,
+        "max": 15.36,
+        "mean": 0.49
+      },
+      "peakRssMB": 72.17,
+      "rssAfterLoadMB": 69.31,
+      "memorySource": "Get-Process PeakWorkingSet64/WorkingSet64"
+    },
+    {
+      "repeat": 3,
+      "coldStartMs": 145.42,
+      "serverPid": 87824,
+      "serverProcess": "node",
+      "requests": 2470996,
+      "rps": 123537.04,
+      "non2xx": 0,
+      "errors": 0,
+      "latencyMs": {
+        "p50": 0.47,
+        "p95": 0.86,
+        "p99": 1.32,
+        "max": 25.26,
+        "mean": 0.51
+      },
+      "peakRssMB": 71.97,
+      "rssAfterLoadMB": 68.97,
+      "memorySource": "Get-Process PeakWorkingSet64/WorkingSet64"
+    }
+  ],
+  "summary": {
+    "note": "median / min / max over 3 repeats",
+    "rps": {
+      "median": 128775.21,
+      "min": 123537.04,
+      "max": 134872.57
+    },
+    "p50Ms": {
+      "median": 0.46,
+      "min": 0.45,
+      "max": 0.47
+    },
+    "p95Ms": {
+      "median": 0.83,
+      "min": 0.74,
+      "max": 0.86
+    },
+    "p99Ms": {
+      "median": 1.16,
+      "min": 0.91,
+      "max": 1.32
+    },
+    "peakRssMB": {
+      "median": 71.97,
+      "min": 71.95,
+      "max": 72.17
+    },
+    "coldStartMs": {
+      "median": 146.73,
+      "min": 145.42,
+      "max": 148.77
+    },
+    "totalNon2xx": 0,
+    "totalErrors": 0
+  }
+}
