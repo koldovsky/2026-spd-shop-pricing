@@ -1,0 +1,26 @@
+== go (go/pricing.exe) at 904a685
+$ node parity/check.mjs --base http://localhost:8099
+quirks (not gating): 0/6 same as reference
+RESULT: PASS
+exit 0
+$ node parity/contract.mjs --base http://localhost:8099
+contract: 125/125 gating corpus requests conform (status-only cases excluded)
+RESULT: PASS
+exit 0
+$ node parity/blackbox/run.mjs --base http://localhost:8099
+ℹ todo 0
+ℹ duration_ms 101.1003
+exit 0
+== kotlin (java -jar kotlin/build/libs/pricing.jar) at 904a685
+$ node parity/check.mjs --base http://localhost:8099
+quirks (not gating): 2/6 same as reference
+RESULT: PASS
+exit 0
+$ node parity/contract.mjs --base http://localhost:8099
+contract: 125/125 gating corpus requests conform (status-only cases excluded)
+RESULT: PASS
+exit 0
+$ node parity/blackbox/run.mjs --base http://localhost:8099
+ℹ todo 0
+ℹ duration_ms 106.1536
+exit 0

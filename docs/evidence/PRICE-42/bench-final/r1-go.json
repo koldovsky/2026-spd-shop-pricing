@@ -1,0 +1,133 @@
+{
+  "label": "go",
+  "startedAt": "2026-11-23T18:58:52.810Z",
+  "gitSha": "904a685f2ddba72f93e841063d8331904dec9016",
+  "machine": {
+    "os": "Windows_NT 10.0.26300",
+    "platform": "win32",
+    "arch": "x64",
+    "cpuModel": "Intel(R) Core(TM) Ultra 9 275HX",
+    "logicalCpus": 24,
+    "totalMemGB": 127.68,
+    "freeMemGBAtStart": 66.13,
+    "node": "v24.18.0",
+    "otherLoad": "not controlled (desktop machine; client and server share the CPU)"
+  },
+  "config": {
+    "cmd": "go/pricing.exe",
+    "base": null,
+    "cwd": "D:\\demo-s2\\pricing-go",
+    "port": 8090,
+    "repeats": 3,
+    "warmupS": 5,
+    "durationS": 20,
+    "connections": 64,
+    "clientWorkers": 8,
+    "seed": 42,
+    "mix": {
+      "catalog": 0.2,
+      "prices": 0.3,
+      "quote": 0.5
+    },
+    "loadModel": "closed loop: each connection sends the next request as soon as the previous response ends; keep-alive",
+    "requestPool": "1000 seeded requests (mulberry32), quotes have 1-5 lines with quantity 1..100",
+    "coldStart": "spawn() to first HTTP 200 on GET /catalog, polled every 5 ms"
+  },
+  "runs": [
+    {
+      "repeat": 1,
+      "coldStartMs": 263.37,
+      "serverPid": 24424,
+      "serverProcess": "pricing",
+      "requests": 1630529,
+      "rps": 81518.08,
+      "non2xx": 0,
+      "errors": 0,
+      "latencyMs": {
+        "p50": 0.48,
+        "p95": 2.56,
+        "p99": 4.22,
+        "max": 15.01,
+        "mean": 0.78
+      },
+      "peakRssMB": 80.68,
+      "rssAfterLoadMB": 73.17,
+      "memorySource": "Get-Process PeakWorkingSet64/WorkingSet64"
+    },
+    {
+      "repeat": 2,
+      "coldStartMs": 25.92,
+      "serverPid": 87980,
+      "serverProcess": "pricing",
+      "requests": 1619894,
+      "rps": 80990.63,
+      "non2xx": 0,
+      "errors": 0,
+      "latencyMs": {
+        "p50": 0.46,
+        "p95": 2.64,
+        "p99": 4.34,
+        "max": 14.27,
+        "mean": 0.79
+      },
+      "peakRssMB": 44.48,
+      "rssAfterLoadMB": 30.08,
+      "memorySource": "Get-Process PeakWorkingSet64/WorkingSet64"
+    },
+    {
+      "repeat": 3,
+      "coldStartMs": 30.35,
+      "serverPid": 5388,
+      "serverProcess": "pricing",
+      "requests": 1641074,
+      "rps": 82043.13,
+      "non2xx": 0,
+      "errors": 0,
+      "latencyMs": {
+        "p50": 0.45,
+        "p95": 2.66,
+        "p99": 4.43,
+        "max": 17.81,
+        "mean": 0.78
+      },
+      "peakRssMB": 54.17,
+      "rssAfterLoadMB": 32.96,
+      "memorySource": "Get-Process PeakWorkingSet64/WorkingSet64"
+    }
+  ],
+  "summary": {
+    "note": "median / min / max over 3 repeats",
+    "rps": {
+      "median": 81518.08,
+      "min": 80990.63,
+      "max": 82043.13
+    },
+    "p50Ms": {
+      "median": 0.46,
+      "min": 0.45,
+      "max": 0.48
+    },
+    "p95Ms": {
+      "median": 2.64,
+      "min": 2.56,
+      "max": 2.66
+    },
+    "p99Ms": {
+      "median": 4.34,
+      "min": 4.22,
+      "max": 4.43
+    },
+    "peakRssMB": {
+      "median": 54.17,
+      "min": 44.48,
+      "max": 80.68
+    },
+    "coldStartMs": {
+      "median": 30.35,
+      "min": 25.92,
+      "max": 263.37
+    },
+    "totalNon2xx": 0,
+    "totalErrors": 0
+  }
+}
