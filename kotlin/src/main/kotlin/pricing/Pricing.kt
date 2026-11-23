@@ -50,7 +50,7 @@ data class Quote(
 private fun rate(currency: String): BigDecimal =
     RATES[currency] ?: throw PricingError("unsupported currency $currency", 422)
 
-private fun cents(d: BigDecimal): Long = d.setScale(0, RoundingMode.HALF_EVEN).longValueExact()
+private fun cents(d: BigDecimal): Long = d.setScale(0, RoundingMode.HALF_UP).longValueExact()
 
 private fun isInteger(q: BigDecimal): Boolean = q.signum() == 0 || q.stripTrailingZeros().scale() <= 0
 
