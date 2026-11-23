@@ -47,22 +47,6 @@ jobs:
           done
           cat "$RUNNER_TEMP/pricing-go.log"
           exit 1
-      # Oracle steps: one per command, each must exit 0. Later slices extend this list.
-      - name: oracle check --tag catalog
-        run: node parity/check.mjs --base http://localhost:8090 --tag catalog
-      - name: oracle check --tag routing
-        run: node parity/check.mjs --base http://localhost:8090 --tag routing
-      - name: oracle check --tag prices
-        run: node parity/check.mjs --base http://localhost:8090 --tag prices
-      - name: oracle check --tag happy
-        run: node parity/check.mjs --base http://localhost:8090 --tag happy
-      - name: oracle check --tag bulk
-        run: node parity/check.mjs --base http://localhost:8090 --tag bulk
-      - name: oracle check --tag promo
-        run: node parity/check.mjs --base http://localhost:8090 --tag promo
-      - name: oracle check --tag cart-discount
-        run: node parity/check.mjs --base http://localhost:8090 --tag cart-discount
-      - name: oracle check --tag lines
-        run: node parity/check.mjs --base http://localhost:8090 --tag lines
-      - name: oracle check --tag rounding
-        run: node parity/check.mjs --base http://localhost:8090 --tag rounding
+      # Oracle steps: one per command, each must exit 0. Since slice 4 the whole corpus is gating.
+      - name: oracle check (all cases)
+        run: node parity/check.mjs --base http://localhost:8090

@@ -1,6 +1,6 @@
 # PRICE-42 — Go reimplementation: slice plan
 
-Status: plan only, no code yet. Spec: `docs/specs/PRICE-42.md`. Oracle: `parity/README.md`, `contracts/openapi.yaml`.
+Status: slices 1-3 merged, slice 4 implemented (no 4a/4b split needed). Spec: `docs/specs/PRICE-42.md`. Oracle: `parity/README.md`, `contracts/openapi.yaml`.
 Reference implementation: `src/` (TypeScript, Express 5, `decimal.js`).
 
 ## Ground rules for every slice
