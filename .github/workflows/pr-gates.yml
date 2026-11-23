@@ -1,0 +1,17 @@
+# PR gates from shop-harness (rules: https://github.com/koldovsky/2026-spd-shop-harness/blob/v1.6.0/docs/gates.md).
+# Bump the tag by PR, like the plugin pin in .claude/settings.json.
+name: PR gates
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+permissions:
+  contents: read
+jobs:
+  trace:
+    uses: koldovsky/2026-spd-shop-harness/.github/workflows/trace-gate.yml@v1.6.0
+    with:
+      key-pattern: 'PRICE-[0-9]+'
+  size:
+    uses: koldovsky/2026-spd-shop-harness/.github/workflows/diff-size.yml@v1.6.0
+    # with:
+    #   exclude: 'parity/corpus/**'   # recorded test data, if the oracle keeps it there
