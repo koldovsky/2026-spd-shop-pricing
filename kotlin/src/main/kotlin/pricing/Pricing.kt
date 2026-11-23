@@ -30,8 +30,11 @@ private val DIV = MathContext(20, RoundingMode.HALF_EVEN)
 
 class PricingError(message: String, val status: Int) : RuntimeException(message)
 
-/** [quantity] is null when the request value is not a number; [sku] is the JS string form of the value. */
-data class QuoteLine(val sku: String, val quantity: BigDecimal?)
+/**
+ * [quantity] is null when the request value is not a number; [sku] is the JS string form of the value and
+ * [skuIsString] is false when the value was not a string (`===` never matches a catalog SKU then).
+ */
+data class QuoteLine(val sku: String, val quantity: BigDecimal?, val skuIsString: Boolean = true)
 
 data class PricedLine(val sku: String, val quantity: BigDecimal, val unitCents: Long, val discountCents: Long, val lineCents: Long)
 
@@ -59,11 +62,11 @@ fun unitPrice(sku: String, currency: String): Long {
 fun quote(currency: String, lines: List<QuoteLine>): Quote {
     if (lines.isEmpty()) throw PricingError("at least one line is required", 422)
     val r = rate(currency)
-    val priced = lines.map { (sku, quantity) ->
+    val priced = lines.map { (sku, quantity, skuIsString) ->
         if (quantity == null || !isInteger(quantity) || quantity < BigDecimal.ONE || quantity > HUNDRED) {
             throw PricingError("quantity for $sku must be 1..100", 422)
         }
-        val product = findProduct(sku) ?: throw PricingError("unknown sku $sku", 404)
+        val product = findProduct(sku)?.takeIf { skuIsString } ?: throw PricingError("unknown sku $sku", 404)
         val unit = BigDecimal(product.baseEurCents).multiply(r)
         val gross = unit.multiply(quantity)
         val bulk = if (quantity >= BigDecimal(BULK_UNITS)) BULK else BigDecimal.ZERO

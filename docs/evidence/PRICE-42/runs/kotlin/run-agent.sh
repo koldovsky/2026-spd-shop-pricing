@@ -11,6 +11,7 @@ START=$(date -Iseconds); S=$(date +%s)
 claude -p "$(cat "$PROMPT_FILE")" --output-format json --model claude-opus-5-5 --max-turns 60 \
   --permission-mode acceptEdits --add-dir "D:/projects/clients/spd-technology/demo/2026-spd-shop-orders" \
   --allowedTools "Bash(./gradlew *)" "Bash(./gradlew)" "Bash(kotlin/gradlew *)" "Bash(./kotlin/gradlew *)" "Bash(gradlew.bat *)" "Bash(cmd //c gradlew.bat *)" \
+    "Bash(/d/demo-s2/pricing-kotlin/kotlin/gradlew *)" "Bash(kotlin/gradlew.bat *)" "PowerShell(.\\kotlin\\gradlew.bat *)" "PowerShell(kotlin/gradlew.bat *)" "PowerShell(kotlin\\gradlew.bat *)" \
     "Bash(git add *)" "Bash(git commit *)" "Bash(git status)" "Bash(git status *)" "Bash(git diff)" "Bash(git diff *)" "Bash(git log)" "Bash(git log *)" \
     "Bash(git -C * status*)" "Bash(git -C * diff*)" "Bash(git -C * log*)" "Bash(git -C * add *)" "Bash(git -C * commit *)" "Bash(git ls-files*)" \
     "Bash(npm run parity:*)" "Bash(node parity/*)" "Bash(node bench/*)" \

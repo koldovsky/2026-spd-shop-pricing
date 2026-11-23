@@ -13,6 +13,8 @@ class Router : HttpHandler {
             when {
                 get && path.equals("/catalog", ignoreCase = true) -> send(ex, JsonResponse(200, catalogJson()))
                 get && sku != null -> send(ex, pricesResponse(sku, ex.requestURI.rawQuery))
+                ex.requestMethod == "POST" && path.removeSuffix("/").equals("/quote", ignoreCase = true) ->
+                    send(ex, quoteResponse(ex.requestHeaders.getFirst("Content-Type"), readBody(ex)))
                 else -> notFound(ex)
             }
         }
@@ -24,6 +26,9 @@ class Router : HttpHandler {
         val sku = path.substring(8).removeSuffix("/")
         return sku.takeIf { it.isNotEmpty() && '/' !in it }
     }
+
+    /** Reads at most one byte past the limit, so an oversized body is detected without buffering it all. */
+    private fun readBody(ex: HttpExchange): ByteArray = ex.requestBody.readNBytes(BODY_LIMIT + 1)
 
     private fun send(ex: HttpExchange, res: JsonResponse) {
         val bytes = res.body.toByteArray(Charsets.UTF_8)
